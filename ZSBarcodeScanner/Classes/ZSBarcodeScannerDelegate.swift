@@ -8,7 +8,7 @@
 import Foundation
 import AVFoundation
 
-protocol ZSBarcodeScannerDelegate: AnyObject {
+public protocol ZSBarcodeScannerDelegate: AnyObject {
 
     func barcodeRead(scanner: ZSBarcodeScannerViewController, data: String)
 

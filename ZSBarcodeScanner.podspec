@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'ZSBarcodeScanner'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of ZSBarcodeScanner.'
+  s.summary          = 'A simple barcode scanner ViewController.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,14 +18,14 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+A simple barcode scanner with support for switching between camera's.
                        DESC
 
   s.homepage         = 'https://github.com/Zandor300/ZSBarcodeScanner'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Zandor300' => 'info@zsinfo.nl' }
-  s.source           = { :git => 'https://github.com/Zandor300/ZSBarcodeScanner.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://git.zsinfo.nl/Zandor300/ZSBarcodeScanner.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '10.0'
@@ -37,6 +37,6 @@ TODO: Add long description of the pod here.
   # }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
+  s.frameworks = 'UIKit'
   # s.dependency 'AFNetworking', '~> 2.3'
 end

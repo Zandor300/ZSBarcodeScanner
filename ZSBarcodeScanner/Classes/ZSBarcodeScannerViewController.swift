@@ -20,6 +20,16 @@ public class ZSBarcodeScannerViewController: UIViewController {
         }
         return cameras
     }()
+    public var cameraNames: [AVCaptureDevice.DeviceType: String] = {
+        var cameras: [AVCaptureDevice.DeviceType: String] = [
+            .builtInWideAngleCamera: "Wide",
+            .builtInTelephotoCamera: "Telephoto"
+        ]
+        if #available(iOS 13.0, *) {
+            cameras[.builtInUltraWideCamera] = "Ultrawide"
+        }
+        return cameras
+    }()
 
     public var prompt: String? = "Point your camera at a barcode."
     public var errorAlertTitle = "Error"
@@ -35,7 +45,7 @@ public class ZSBarcodeScannerViewController: UIViewController {
 
     // MARK: Main code
 
-    weak var delegate: ZSBarcodeScannerDelegate?
+    public weak var delegate: ZSBarcodeScannerDelegate?
 
     var output = AVCaptureMetadataOutput()
     var previewLayer: AVCaptureVideoPreviewLayer?
@@ -147,7 +157,7 @@ public class ZSBarcodeScannerViewController: UIViewController {
 
         if devices.count > 1 {
             let items: [String] = self.devices.map { device -> String in
-                return device.localizedName
+                return cameraNames[device.deviceType] ?? "Unknown"
             }
             segmentedControl = UISegmentedControl(items: items)
             segmentedControl.tintColor = .white
