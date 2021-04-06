@@ -21,13 +21,14 @@ Pod::Spec.new do |s|
 A simple barcode scanner with support for switching between camera's.
                        DESC
 
-  s.homepage         = 'https://github.com/Zandor300/ZSBarcodeScanner'
+  s.homepage         = 'https://git.zsinfo.nl/Zandor300/ZSBarcodeScanner'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Zandor300' => 'info@zsinfo.nl' }
   s.source           = { :git => 'https://git.zsinfo.nl/Zandor300/ZSBarcodeScanner.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
+  s.swift_version = '5.0'
   s.ios.deployment_target = '10.0'
 
   s.source_files = 'ZSBarcodeScanner/Classes/**/*'
