@@ -297,7 +297,7 @@ public class ZSBarcodeScannerViewController: UIViewController {
 
 extension ZSBarcodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
 
-    private func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+    public func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         for metadata in metadataObjects {
             if let readableObject = metadata as? AVMetadataMachineReadableCodeObject, let code = readableObject.stringValue {
                 print(code)
