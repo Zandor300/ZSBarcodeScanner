@@ -7,18 +7,25 @@
 //
 
 import UIKit
+import ZSBarcodeScanner
 
 class ViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
+    @IBOutlet weak var resultLabel: UILabel!
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func didTapOpenScanner(_ sender: Any) {
+        let barcodeScanner = ZSBarcodeScannerViewController()
+        barcodeScanner.delegate = self
+        let navigationController = UINavigationController(rootViewController: barcodeScanner)
+        self.present(navigationController, animated: true)
     }
 
 }
 
+extension ViewController: ZSBarcodeScannerDelegate {
+
+    func barcodeRead(scanner: ZSBarcodeScannerViewController, data: String) {
+        resultLabel.text = data
+    }
+
+}
