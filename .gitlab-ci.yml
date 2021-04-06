@@ -1,0 +1,92 @@
+variables:
+  LANG: en_US.UTF-8
+
+stages:
+  - build
+  - test
+  - lint
+  - docs
+  - deploy
+
+build:
+  stage: build
+  script:
+    - bundle install
+    # - cd Example/
+    # - bundle exec pod install --repo-update
+    # - cd ../
+    - set -o pipefail && xcodebuild build -workspace Example/ZSBarcodeScanner.xcworkspace -scheme ZSBarcodeScanner -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | bundle exec xcpretty
+  tags:
+    - xcode12
+  needs: []
+
+#build-tvos:
+#  stage: build
+#  script:
+#    - bundle install
+#    # - cd Example/
+#    # - bundle exec pod install --repo-update
+#    # - cd ../
+#    - set -o pipefail && xcodebuild build -workspace Example/GeneralToolsFramework.xcworkspace -scheme GeneralToolsFramework -sdk appletvsimulator ONLY_ACTIVE_ARCH=NO | bundle exec xcpretty
+#  tags:
+#    - xcode12
+#  needs: []
+
+#test:
+#  stage: test
+#  script:
+#    - bundle install
+#    # - cd Example/
+#    # - bundle exec pod install --repo-update
+#    # - cd ../
+#    - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/GeneralToolsFramework.xcworkspace -scheme GeneralToolsFramework-Example -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 11,OS=latest" ONLY_ACTIVE_ARCH=NO | bundle exec xcpretty -r junit
+#  tags:
+#    - xcode12
+#  artifacts:
+#    paths:
+#      - build/reports/junit.xml
+#    reports:
+#      junit: build/reports/junit.xml
+#  needs: []
+
+cocoapods-lint:
+  stage: lint
+  script:
+    - bundle install
+    - bundle exec pod lib lint --allow-warnings
+  tags:
+    - xcode12
+  needs: []
+
+swiftlint:
+  stage: lint
+  script:
+    - swiftlint
+  tags:
+    - xcode12
+  needs: []
+
+#jazzy-docs:
+#  stage: docs
+#  script:
+#    - bundle install
+#    - bundle exec jazzy --podspec GeneralToolsFramework.podspec --output docs
+#  tags:
+#    - xcode12
+#  artifacts:
+#    paths:
+#      - docs
+#  needs: []
+
+#pages:
+#  stage: deploy
+#  script:
+#    - mv docs/ public/
+#  tags:
+#    - xcode12
+#  artifacts:
+#    paths:
+#      - public
+#  needs:
+#    - job: jazzy-docs
+#      artifacts: true
