@@ -141,11 +141,7 @@ public class ZSBarcodeScannerViewController: UIViewController {
         let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: deviceTypes, mediaType: nil, position: .back)
         let devices = discoverySession.devices
         if devices.isEmpty {
-            let alert = UIAlertController(title: errorAlertTitle, message: errorAlertDescription, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: errorOkButtonText, style: .cancel, handler: { _ in
-                self.dismiss(animated: true, completion: nil)
-            }))
-            self.present(alert, animated: true, completion: nil)
+            showGeneralErrorAlert()
             return
         }
 
@@ -191,11 +187,7 @@ public class ZSBarcodeScannerViewController: UIViewController {
 
     private func setupCapture(with device: AVCaptureDevice) {
         guard let input = try? AVCaptureDeviceInput(device: device) else {
-            let alert = UIAlertController(title: errorAlertTitle, message: errorAlertDescription, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: errorOkButtonText, style: .cancel, handler: { _ in
-                self.dismiss(animated: true, completion: nil)
-            }))
-            self.present(alert, animated: true, completion: nil)
+            showGeneralErrorAlert()
             return
         }
 
@@ -228,11 +220,7 @@ public class ZSBarcodeScannerViewController: UIViewController {
             self.captureSession.removeInput(input)
         }
         guard let input = try? AVCaptureDeviceInput(device: device) else {
-            let alert = UIAlertController(title: errorAlertTitle, message: errorAlertDescription, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: errorOkButtonText, style: .cancel, handler: { _ in
-                self.dismiss(animated: true, completion: nil)
-            }))
-            self.present(alert, animated: true, completion: nil)
+            showGeneralErrorAlert()
             return
         }
         self.captureSession.addInput(input)
@@ -291,6 +279,16 @@ public class ZSBarcodeScannerViewController: UIViewController {
             }
         }
         self.previewLayer?.frame = self.view.bounds
+    }
+
+    func showGeneralErrorAlert() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: self.errorAlertTitle, message: self.errorAlertDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: self.errorOkButtonText, style: .cancel, handler: { _ in
+                self.dismiss(animated: true, completion: nil)
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 
 }
