@@ -31,17 +31,31 @@ public class ZSBarcodeScannerViewController: UIViewController {
         return cameras
     }()
 
-    public var prompt: String? = "Point your camera at a barcode."
-    public var errorAlertTitle = "Error"
-    public var errorAlertDescription = "An error occured. Please try again later."
-    public var errorNoCameraPermissionTitle = "No permission"
-    public var errorNoCameraPermissionDescription = "The app doesn't have permission to access the camera. Please enable access in iOS settings."
-    public var errorOkButtonText = "OK"
-    public var errorSettingsButtonText = "Settings"
+    // Default variables that can be set once during application didFinishLaunchingWithOptions.
+    public static var defaultPrompt: String? = "Point your camera at a barcode."
+    public static var defaultErrorAlertTitle = "Error"
+    public static var defaultErrorAlertDescription = "An error occured. Please try again later."
+    public static var defaultErrorNoCameraPermissionTitle = "No permission"
+    public static var defaultErrorNoCameraPermissionDescription = "The app doesn't have permission to access the camera. Please enable access in iOS settings."
+    public static var defaultErrorOkButtonText = "OK"
+    public static var defaultErrorSettingsButtonText = "Settings"
 
-    public var closeGlyph = UIImage(named: "Close", in: Bundle(for: classForCoder()), compatibleWith: nil)
-    public var flashOnGlyph = UIImage(named: "FlashOn", in: Bundle(for: classForCoder()), compatibleWith: nil)
-    public var flashOffGlyph = UIImage(named: "FlashOff", in: Bundle(for: classForCoder()), compatibleWith: nil)
+    public static var defaultCloseGlyph = UIImage(named: "Close", in: Bundle(for: classForCoder()), compatibleWith: nil)
+    public static var defaultFlashOnGlyph = UIImage(named: "FlashOn", in: Bundle(for: classForCoder()), compatibleWith: nil)
+    public static var defaultFlashOffGlyph = UIImage(named: "FlashOff", in: Bundle(for: classForCoder()), compatibleWith: nil)
+
+    // Variables to customize the barcode scanner during launching from default settings.
+    public var prompt: String? = defaultPrompt
+    public var errorAlertTitle = defaultErrorAlertTitle
+    public var errorAlertDescription = defaultErrorAlertDescription
+    public var errorNoCameraPermissionTitle = defaultErrorNoCameraPermissionTitle
+    public var errorNoCameraPermissionDescription = defaultErrorNoCameraPermissionDescription
+    public var errorOkButtonText = defaultErrorOkButtonText
+    public var errorSettingsButtonText = defaultErrorSettingsButtonText
+
+    public var closeGlyph = defaultCloseGlyph
+    public var flashOnGlyph = defaultFlashOnGlyph
+    public var flashOffGlyph = defaultFlashOffGlyph
 
     // MARK: Main code
 
