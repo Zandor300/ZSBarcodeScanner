@@ -84,25 +84,29 @@ public class ZSBarcodeScannerViewController: UIViewController {
         self.setNeedsStatusBarAppearanceUpdate()
 
         if AVCaptureDevice.authorizationStatus(for: .video) == .authorized {
-            self.setupCameras()
+            DispatchQueue.main.async {
+                self.setupCameras()
+            }
         } else {
             AVCaptureDevice.requestAccess(for: .video) { (granted) in
-                if granted == true {
-                    self.setupCameras()
-                } else {
-                    let alert = UIAlertController(title: self.errorNoCameraPermissionTitle, message: self.errorNoCameraPermissionDescription, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: self.errorSettingsButtonText, style: .default, handler: { _ in
-//                        if #available(iOS 10.0, *) {
-//                            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:])
-//                        } else {
-//                            UIApplication.shared.open(URL(string: UIApplication.UIApplicationOpenSettingsURLString)!, options: [:])
-//                        }
-                        self.dismiss(animated: true, completion: nil)
-                    }))
-                    alert.addAction(UIAlertAction(title: self.errorOkButtonText, style: .cancel, handler: { _ in
-                        self.dismiss(animated: true, completion: nil)
-                    }))
-                    self.present(alert, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    if granted == true {
+                        self.setupCameras()
+                    } else {
+                        let alert = UIAlertController(title: self.errorNoCameraPermissionTitle, message: self.errorNoCameraPermissionDescription, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: self.errorSettingsButtonText, style: .default, handler: { _ in
+//                            if #available(iOS 10.0, *) {
+//                                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:])
+//                            } else {
+//                                UIApplication.shared.open(URL(string: UIApplication.UIApplicationOpenSettingsURLString)!, options: [:])
+//                            }
+                            self.dismiss(animated: true, completion: nil)
+                        }))
+                        alert.addAction(UIAlertAction(title: self.errorOkButtonText, style: .cancel, handler: { _ in
+                            self.dismiss(animated: true, completion: nil)
+                        }))
+                        self.present(alert, animated: true, completion: nil)
+                    }
                 }
             }
         }
