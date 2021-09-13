@@ -95,11 +95,12 @@ public class ZSBarcodeScannerViewController: UIViewController {
                     } else {
                         let alert = UIAlertController(title: self.errorNoCameraPermissionTitle, message: self.errorNoCameraPermissionDescription, preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: self.errorSettingsButtonText, style: .default, handler: { _ in
-//                            if #available(iOS 10.0, *) {
-//                                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:])
-//                            } else {
-//                                UIApplication.shared.open(URL(string: UIApplication.UIApplicationOpenSettingsURLString)!, options: [:])
-//                            }
+                            if #available(iOS 10.0, *), let settingsUrl = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsUrl) {
+                                alert.addAction(UIAlertAction(title: self.errorSettingsButtonText, style: .default, handler: { _ in
+                                    UIApplication.shared.open(settingsUrl, options: [:])
+                                    self.dismiss(animated: true, completion: nil)
+                                }))
+                            }
                             self.dismiss(animated: true, completion: nil)
                         }))
                         alert.addAction(UIAlertAction(title: self.errorOkButtonText, style: .cancel, handler: { _ in
