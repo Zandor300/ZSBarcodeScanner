@@ -116,6 +116,13 @@ public class ZSBarcodeScannerViewController: UIViewController {
         self.navigationController?.navigationBar.barStyle = .black
         self.view.backgroundColor = .black
 
+        if #available(iOS 15.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithDefaultBackground()
+            appearance.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.75)
+            self.navigationItem.scrollEdgeAppearance = appearance
+        }
+
         let backButton = UIBarButtonItem(image: closeGlyph, style: .plain, target: self, action: #selector(cancel))
         backButton.tintColor = .orange
         self.navigationItem.rightBarButtonItem = backButton
