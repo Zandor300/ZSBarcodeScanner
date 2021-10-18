@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import QuartzCore
 
 public class ZSBarcodeScannerViewController: UIViewController {
 
@@ -62,6 +63,12 @@ public class ZSBarcodeScannerViewController: UIViewController {
         }
     }
 
+    // Scan effects
+    public static var defaultShowScanningBox = true
+    public static var defaultScanAnimation = true
+    public static var defaultScanAnimationDuration = 0.25
+    public static var defaultScanPostAnimationDelay = 0.25
+
     // Variables to customize the barcode scanner during launching from default settings.
     public var prompt: String? = defaultPrompt
     public var errorAlertTitle = defaultErrorAlertTitle
@@ -74,6 +81,11 @@ public class ZSBarcodeScannerViewController: UIViewController {
     public var closeGlyph = defaultCloseGlyph
     public var flashOnGlyph = defaultFlashOnGlyph
     public var flashOffGlyph = defaultFlashOffGlyph
+
+    public var showScanningBox = defaultShowScanningBox
+    public var scanAnimation = defaultScanAnimation
+    public var scanAnimationDuration = defaultScanAnimationDuration
+    public var scanPostAnimationDelay = defaultScanPostAnimationDelay
 
     // MARK: Main code
 
@@ -91,6 +103,9 @@ public class ZSBarcodeScannerViewController: UIViewController {
     var segmentedControl = UISegmentedControl()
 
     var outputBarcode: String?
+
+    let barcodeFrameView = UIView()
+    var maskLayer: CAShapeLayer?
 
     public override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -265,6 +280,67 @@ public class ZSBarcodeScannerViewController: UIViewController {
         }
     }
 
+    func getOverlayCutoutPath(frame: CGRect, rect: CGRect) -> UIBezierPath {
+        let path = UIBezierPath(rect: frame)
+        let pathCutout = UIBezierPath(roundedRect: rect, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 15, height: 15))
+        path.append(pathCutout)
+        return path
+    }
+
+    private func setupFrameView() {
+        guard showScanningBox else {
+            barcodeFrameView.layer.opacity = 0
+            return
+        }
+        barcodeFrameView.layer.opacity = 1
+        barcodeFrameView.layer.borderColor = UIColor.white.cgColor
+        barcodeFrameView.layer.borderWidth = 3
+        barcodeFrameView.layer.cornerRadius = 15
+        let size = min(view.bounds.width, view.bounds.height) - 100
+        barcodeFrameView.frame.size = CGSize(width: size, height: size)
+        barcodeFrameView.center = view.center
+
+        let overlay = UIView(frame: view.bounds)
+        overlay.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+
+        maskLayer = CAShapeLayer()
+        guard let maskLayer = maskLayer else {
+            return
+        }
+        maskLayer.frame = overlay.bounds
+        maskLayer.fillColor = UIColor.black.cgColor
+        maskLayer.fillRule = CAShapeLayerFillRule.evenOdd
+
+        let rect = CGRect(x: overlay.frame.midX - size / 2, y: overlay.frame.midY - size / 2, width: size, height: size)
+        maskLayer.path = getOverlayCutoutPath(frame: overlay.bounds, rect: rect).cgPath
+        overlay.layer.mask = maskLayer
+
+        self.view.addSubview(overlay)
+
+        if !barcodeFrameView.isDescendant(of: view) {
+            view.addSubview(barcodeFrameView)
+            view.bringSubviewToFront(barcodeFrameView)
+        }
+    }
+
+    private func animateScanBox(to rect: CGRect, completion: @escaping () -> Void) {
+        UIView.animate(withDuration: scanAnimationDuration, delay: 0, options: .curveEaseInOut) {
+            self.barcodeFrameView.frame = rect
+        } completion: { _ in
+            completion()
+        }
+
+        if let maskLayer = maskLayer {
+            let animation = CABasicAnimation(keyPath: "path")
+            animation.duration = scanAnimationDuration
+            animation.toValue = self.getOverlayCutoutPath(frame: view.bounds, rect: rect).cgPath
+            animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+            animation.fillMode = CAMediaTimingFillMode.forwards
+            animation.isRemovedOnCompletion = false
+            maskLayer.add(animation, forKey: "path")
+        }
+    }
+
     private func changeDevice(to device: AVCaptureDevice) {
         let torchState = currentDevice?.isTorchActive ?? false
         if self.captureSession.isRunning {
@@ -291,6 +367,7 @@ public class ZSBarcodeScannerViewController: UIViewController {
             self.previewLayer?.frame = self.view.bounds
             self.view.layer.addSublayer(self.previewLayer!)
             self.handleDeviceRotation()
+            self.setupFrameView()
         }
     }
 
@@ -357,10 +434,21 @@ extension ZSBarcodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate
                 if self.captureSession.isRunning {
                     self.captureSession.stopRunning()
                 }
+                self.currentDevice?.unlockForConfiguration()
                 DispatchQueue.main.async {
-                    self.dismiss(animated: true, completion: {
-                        self.delegate?.barcodeRead(scanner: self, data: code)
-                    })
+                    if self.showScanningBox, self.scanAnimation, let barCodeObject = self.previewLayer?.transformedMetadataObject(for: metadata) {
+                        self.animateScanBox(to: barCodeObject.bounds) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + self.scanPostAnimationDelay) {
+                                self.dismiss(animated: true, completion: {
+                                    self.delegate?.barcodeRead(scanner: self, data: code)
+                                })
+                            }
+                        }
+                    } else {
+                        self.dismiss(animated: true, completion: {
+                            self.delegate?.barcodeRead(scanner: self, data: code)
+                        })
+                    }
                 }
                 return
             }
