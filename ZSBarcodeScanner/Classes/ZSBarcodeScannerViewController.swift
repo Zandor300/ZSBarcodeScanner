@@ -112,6 +112,7 @@ public class ZSBarcodeScannerViewController: UIViewController {
     var outputBarcode: String?
 
     let barcodeFrameView = UIView()
+    let overlayView = UIView()
     var maskLayer: CAShapeLayer?
 
     public override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -147,6 +148,8 @@ public class ZSBarcodeScannerViewController: UIViewController {
         let backButton = UIBarButtonItem(image: closeGlyph, style: .plain, target: self, action: #selector(cancel))
         backButton.tintColor = .orange
         self.navigationItem.rightBarButtonItem = backButton
+
+        setupFrameView()
     }
 
     @objc func cancel() {
@@ -301,38 +304,56 @@ public class ZSBarcodeScannerViewController: UIViewController {
 
     private func setupFrameView() {
         guard showScanningBox else {
-            barcodeFrameView.layer.opacity = 0
             return
         }
-        barcodeFrameView.layer.opacity = 1
+
+        var size: CGFloat {
+            if #available(iOS 11.0, *) {
+                let value = min(view.bounds.width - view.safeAreaInsets.left - view.safeAreaInsets.right, view.bounds.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom)
+                return value * 0.8
+            } else {
+                let value = min(view.bounds.width, view.bounds.height)
+                return value * 0.8
+            }
+        }
+        var center: CGPoint {
+            if #available(iOS 11.0, *) {
+                return CGPoint(x: view.center.x + view.safeAreaInsets.left / 2 - view.safeAreaInsets.right / 2, y: view.center.y + view.safeAreaInsets.top / 2 - view.safeAreaInsets.bottom / 2)
+            } else {
+                return view.center
+            }
+        }
+
         barcodeFrameView.layer.borderColor = UIColor.white.cgColor
         barcodeFrameView.layer.borderWidth = 3
         barcodeFrameView.layer.cornerRadius = 15
-        let size = min(view.bounds.width, view.bounds.height) - 100
         barcodeFrameView.frame.size = CGSize(width: size, height: size)
-        barcodeFrameView.center = view.center
+        barcodeFrameView.center = center
 
-        let overlay = UIView(frame: view.bounds)
-        overlay.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        overlayView.frame = view.bounds
+        overlayView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
 
         maskLayer = CAShapeLayer()
         guard let maskLayer = maskLayer else {
             return
         }
-        maskLayer.frame = overlay.bounds
+        maskLayer.frame = overlayView.bounds
         maskLayer.fillColor = UIColor.black.cgColor
         maskLayer.fillRule = CAShapeLayerFillRule.evenOdd
 
-        let rect = CGRect(x: overlay.frame.midX - size / 2, y: overlay.frame.midY - size / 2, width: size, height: size)
-        maskLayer.path = getOverlayCutoutPath(frame: overlay.bounds, rect: rect).cgPath
-        overlay.layer.mask = maskLayer
+        let rect = CGRect(x: center.x - size / 2, y: center.y - size / 2, width: size, height: size)
+        maskLayer.path = getOverlayCutoutPath(frame: overlayView.bounds, rect: rect).cgPath
+        overlayView.layer.mask = maskLayer
 
-        self.view.addSubview(overlay)
+        if !overlayView.isDescendant(of: view) {
+            view.addSubview(overlayView)
+        }
+        view.bringSubviewToFront(overlayView)
 
         if !barcodeFrameView.isDescendant(of: view) {
             view.addSubview(barcodeFrameView)
-            view.bringSubviewToFront(barcodeFrameView)
         }
+        view.bringSubviewToFront(barcodeFrameView)
     }
 
     private func animateScanBox(to rect: CGRect, completion: @escaping () -> Void) {
@@ -400,6 +421,7 @@ public class ZSBarcodeScannerViewController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { _ in
             self.handleDeviceRotation()
+            self.setupFrameView()
         }, completion: nil)
     }
 
