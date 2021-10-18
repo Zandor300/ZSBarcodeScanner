@@ -133,35 +133,6 @@ public class ZSBarcodeScannerViewController: UIViewController {
 
         self.setNeedsStatusBarAppearanceUpdate()
 
-        if AVCaptureDevice.authorizationStatus(for: .video) == .authorized {
-            DispatchQueue.main.async {
-                self.setupCameras()
-            }
-        } else {
-            AVCaptureDevice.requestAccess(for: .video) { (granted) in
-                DispatchQueue.main.async {
-                    if granted == true {
-                        self.setupCameras()
-                    } else {
-                        let alert = UIAlertController(title: self.errorNoCameraPermissionTitle, message: self.errorNoCameraPermissionDescription, preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: self.errorSettingsButtonText, style: .default, handler: { _ in
-                            if #available(iOS 10.0, *), let settingsUrl = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsUrl) {
-                                alert.addAction(UIAlertAction(title: self.errorSettingsButtonText, style: .default, handler: { _ in
-                                    UIApplication.shared.open(settingsUrl, options: [:])
-                                    self.dismiss(animated: true, completion: nil)
-                                }))
-                            }
-                            self.dismiss(animated: true, completion: nil)
-                        }))
-                        alert.addAction(UIAlertAction(title: self.errorOkButtonText, style: .cancel, handler: { _ in
-                            self.dismiss(animated: true, completion: nil)
-                        }))
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                }
-            }
-        }
-
         self.navigationItem.prompt = prompt
         self.navigationController?.navigationBar.barStyle = .black
         self.view.backgroundColor = .black
@@ -194,6 +165,40 @@ public class ZSBarcodeScannerViewController: UIViewController {
                 print("BarcodeScanner: Stop running...")
                 self.captureSession.stopRunning()
                 print("BarcodeScanner: Stopped.")
+            }
+        }
+    }
+
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.outputBarcode = nil
+
+        if AVCaptureDevice.authorizationStatus(for: .video) == .authorized {
+            DispatchQueue.main.async {
+                self.setupCameras()
+            }
+        } else {
+            AVCaptureDevice.requestAccess(for: .video) { (granted) in
+                DispatchQueue.main.async {
+                    if granted == true {
+                        self.setupCameras()
+                    } else {
+                        let alert = UIAlertController(title: self.errorNoCameraPermissionTitle, message: self.errorNoCameraPermissionDescription, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: self.errorSettingsButtonText, style: .default, handler: { _ in
+                            if #available(iOS 10.0, *), let settingsUrl = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsUrl) {
+                                alert.addAction(UIAlertAction(title: self.errorSettingsButtonText, style: .default, handler: { _ in
+                                    UIApplication.shared.open(settingsUrl, options: [:])
+                                    self.dismiss(animated: true, completion: nil)
+                                }))
+                            }
+                            self.dismiss(animated: true, completion: nil)
+                        }))
+                        alert.addAction(UIAlertAction(title: self.errorOkButtonText, style: .cancel, handler: { _ in
+                            self.dismiss(animated: true, completion: nil)
+                        }))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
             }
         }
     }
@@ -434,6 +439,9 @@ public class ZSBarcodeScannerViewController: UIViewController {
 extension ZSBarcodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
 
     public func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+        guard outputBarcode == nil else {
+            return
+        }
         for metadata in metadataObjects {
             if let readableObject = metadata as? AVMetadataMachineReadableCodeObject, let code = readableObject.stringValue {
                 print(code)
