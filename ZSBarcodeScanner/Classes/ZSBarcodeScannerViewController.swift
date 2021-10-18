@@ -11,6 +11,8 @@ import QuartzCore
 
 public class ZSBarcodeScannerViewController: UIViewController {
 
+    private let generator = UINotificationFeedbackGenerator()
+
     // MARK: Customizable variables
 
     public var allowedBarcodeTypes:  [AVMetadataObject.ObjectType] = [.qr, .ean13, .upce, .dataMatrix, .code39, .code128, .code93]
@@ -71,6 +73,7 @@ public class ZSBarcodeScannerViewController: UIViewController {
     public static var defaultScanAnimation = true
     public static var defaultScanAnimationDuration = 0.25
     public static var defaultScanPostAnimationDelay = 0.25
+    public static var defaultScanHapticFeedback = true
 
     // Variables to customize the barcode scanner during launching from default settings.
     public var prompt: String? = defaultPrompt
@@ -89,6 +92,7 @@ public class ZSBarcodeScannerViewController: UIViewController {
     public var scanAnimation = defaultScanAnimation
     public var scanAnimationDuration = defaultScanAnimationDuration
     public var scanPostAnimationDelay = defaultScanPostAnimationDelay
+    public var scanHapticFeedback = defaultScanHapticFeedback
 
     // MARK: Main code
 
@@ -438,7 +442,11 @@ extension ZSBarcodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate
                     self.captureSession.stopRunning()
                 }
                 self.currentDevice?.unlockForConfiguration()
+
                 DispatchQueue.main.async {
+                    if self.scanHapticFeedback {
+                        self.generator.notificationOccurred(.success)
+                    }
                     if self.showScanningBox, self.scanAnimation, let barCodeObject = self.previewLayer?.transformedMetadataObject(for: metadata) {
                         self.animateScanBox(to: barCodeObject.bounds) {
                             DispatchQueue.main.asyncAfter(deadline: .now() + self.scanPostAnimationDelay) {
