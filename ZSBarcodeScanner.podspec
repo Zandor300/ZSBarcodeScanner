@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ZSBarcodeScanner'
-  s.version          = '0.2.2'
+  s.version          = '0.3.0'
   s.summary          = 'A simple barcode scanner ViewController.'
 
 # This description is used to generate tags and improve search results.
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-A simple barcode scanner with support for switching between camera's.
+A simple barcode scanner with support for switching between cameras.
                        DESC
 
   s.homepage         = 'https://git.zsinfo.nl/Zandor300/ZSBarcodeScanner'
