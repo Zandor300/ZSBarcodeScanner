@@ -41,27 +41,30 @@ public class ZSBarcodeScannerViewController: UIViewController {
     public static var defaultErrorOkButtonText = "OK"
     public static var defaultErrorSettingsButtonText = "Settings"
 
-    public static var defaultCloseGlyph: UIImage? {
+    private static var internalDefaultCloseGlyph: UIImage? {
         if #available(iOS 13.0, *) {
             return UIImage(systemName: "multiply.circle.fill")
         } else {
             return UIImage(named: "Close", in: Bundle(for: classForCoder()), compatibleWith: nil)
         }
     }
-    public static var defaultFlashOnGlyph: UIImage? {
+    private static var internalDefaultFlashOnGlyph: UIImage? {
         if #available(iOS 13.0, *) {
             return UIImage(systemName: "bolt.fill")
         } else {
             return UIImage(named: "FlashOn", in: Bundle(for: classForCoder()), compatibleWith: nil)
         }
     }
-    public static var defaultFlashOffGlyph: UIImage? {
+    private static var internalDefaultFlashOffGlyph: UIImage? {
         if #available(iOS 13.0, *) {
             return UIImage(systemName: "bolt.slash.fill")
         } else {
             return UIImage(named: "FlashOff", in: Bundle(for: classForCoder()), compatibleWith: nil)
         }
     }
+    public static var defaultCloseGlyph = internalDefaultCloseGlyph
+    public static var defaultFlashOnGlyph = internalDefaultFlashOnGlyph
+    public static var defaultFlashOffGlyph = internalDefaultFlashOffGlyph
 
     // Scan effects
     public static var defaultShowScanningBox = true
