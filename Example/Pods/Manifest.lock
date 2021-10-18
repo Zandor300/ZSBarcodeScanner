@@ -1,5 +1,5 @@
 PODS:
-  - ZSBarcodeScanner (0.1.0)
+  - ZSBarcodeScanner (0.3.0)
 
 DEPENDENCIES:
   - ZSBarcodeScanner (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  ZSBarcodeScanner: 686ba2ced420ac731eb7944485dee6bf3d6520d1
+  ZSBarcodeScanner: aed60dd4af2edb9c7f74e3f0ad46ac6f4e2cf37e
 
 PODFILE CHECKSUM: 714b64dca75bab4a0e60547cd8600fb2ebd74ad5
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.10.0

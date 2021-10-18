@@ -3,7 +3,7 @@ This application makes use of the following third party libraries:
 
 ## ZSBarcodeScanner
 
-Copyright (c) 2021 Zandor300 <info@zsinfo.nl>
+Copyright (c) 2021 Zandor Smith <info@zsinfo.nl>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

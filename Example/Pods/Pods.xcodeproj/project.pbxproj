@@ -9,18 +9,26 @@
 /* Begin PBXBuildFile section */
 		136A761E92F1636A64B2B14CB8375958 /* Pods-ZSBarcodeScanner_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC67806AB3A3D30DE028EAB740DFAB5 /* Pods-ZSBarcodeScanner_Tests-dummy.m */; };
 		18C755D330C3A81CCB70800223F6586E /* Pods-ZSBarcodeScanner_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B266606FA44FCE43916D51ACD0090D4 /* Pods-ZSBarcodeScanner_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		18C88BB40D59CAB84299CD3C5779596F /* ZSBarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96589537EAA429A29E5160C0BE42A1B2 /* ZSBarcodeScannerViewController.swift */; };
 		2FDF603B48E0C2326799055D900923A7 /* Pods-ZSBarcodeScanner_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A597DF2FBA36ED1016792D9AFA9F778 /* Pods-ZSBarcodeScanner_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4BE90356C2F38BC334E9958684FA7E6F /* ZSBarcodeScanner-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E31377D61F40031D4B5F652F81610F1 /* ZSBarcodeScanner-dummy.m */; };
+		6FF5E327A9591A887416B175A350406E /* ZSBarcodeScanner-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E9E58162D4F0BD790123A57A72DCDBC /* ZSBarcodeScanner-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7A6D6282EA97E3F26A6F6B96931BEC93 /* Pods-ZSBarcodeScanner_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A5694E485C93BCD17C70711D4936E9AC /* Pods-ZSBarcodeScanner_Example-dummy.m */; };
-		8EC33635B59B2CA9CD9A7D0D9C32EA5D /* ZSBarcodeScanner-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E9E58162D4F0BD790123A57A72DCDBC /* ZSBarcodeScanner-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A856BBD98E36D7BE05CBB2C8A1875326 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		BA4D8E4861EDB1AB7D2D69D7F8B4F8DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		DBE08EDDF5C3B1FA25373E29BCF94D6F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		F03427A64B4E960013621DF75DF28A14 /* ZSBarcodeScannerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965424F51F2BF7BBEEA4899DDDEEBE42 /* ZSBarcodeScannerDelegate.swift */; };
+		929858DE8D932B1A7BAA5580A044EC80 /* ZSBarcodeScannerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965424F51F2BF7BBEEA4899DDDEEBE42 /* ZSBarcodeScannerDelegate.swift */; };
+		9C536468475BD3D5594B3094F2D3975F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FEFE490E4A06D19E868B2B9014BB8BF /* QuartzCore.framework */; };
+		A856BBD98E36D7BE05CBB2C8A1875326 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31FE7C6ECA71C614A5A667C679B23874 /* Foundation.framework */; };
+		BA4D8E4861EDB1AB7D2D69D7F8B4F8DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31FE7C6ECA71C614A5A667C679B23874 /* Foundation.framework */; };
+		C123BBBB8D8C0446DA78EAFF3AE0F790 /* ZSBarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96589537EAA429A29E5160C0BE42A1B2 /* ZSBarcodeScannerViewController.swift */; };
+		C195F91586B8E6B90F93FA98C75546A8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31FE7C6ECA71C614A5A667C679B23874 /* Foundation.framework */; };
+		C6FF2697B0EC15E9851871E4C5CD7094 /* ZSBarcodeScanner-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E31377D61F40031D4B5F652F81610F1 /* ZSBarcodeScanner-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		51F595957BFB6205B6FA96136EA12020 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB941EE62E20BDD3515B9360755F06CB;
+			remoteInfo = "Pods-ZSBarcodeScanner_Example";
+		};
 		5D8E75D93962551463787C00E84CE540 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
@@ -28,22 +36,17 @@
 			remoteGlobalIDString = 3B970ABF9EF0C443A517E67A892B1216;
 			remoteInfo = ZSBarcodeScanner;
 		};
-		A97F0EFD73E0AFE1F380531B0A38C04D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DB941EE62E20BDD3515B9360755F06CB;
-			remoteInfo = "Pods-ZSBarcodeScanner_Example";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0659A7884E27649BAF4F49EC10119852 /* ZSBarcodeScanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZSBarcodeScanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0F2FADE9AE4AC78B82492454E24E94DB /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		0659A7884E27649BAF4F49EC10119852 /* ZSBarcodeScanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ZSBarcodeScanner.framework; path = ZSBarcodeScanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F2FADE9AE4AC78B82492454E24E94DB /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		21FA17E6827D9B6511FB83D9B74A6284 /* Pods-ZSBarcodeScanner_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ZSBarcodeScanner_Example-frameworks.sh"; sourceTree = "<group>"; };
 		25C93A477536861826DD525B7F07FA17 /* ZSBarcodeScanner.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ZSBarcodeScanner.modulemap; sourceTree = "<group>"; };
 		2D41B8F211E1FBCB2723488005535CD7 /* Pods-ZSBarcodeScanner_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZSBarcodeScanner_Example.release.xcconfig"; sourceTree = "<group>"; };
-		32D37FDC4AD8DF8131B0E733AAFB2F95 /* ZSBarcodeScanner.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = ZSBarcodeScanner.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		2FEFE490E4A06D19E868B2B9014BB8BF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		31FE7C6ECA71C614A5A667C679B23874 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		32D37FDC4AD8DF8131B0E733AAFB2F95 /* ZSBarcodeScanner.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = ZSBarcodeScanner.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3B266606FA44FCE43916D51ACD0090D4 /* Pods-ZSBarcodeScanner_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ZSBarcodeScanner_Example-umbrella.h"; sourceTree = "<group>"; };
 		40D8F6FEDB38586ADD62EB2484BE5C30 /* Pods-ZSBarcodeScanner_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZSBarcodeScanner_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		48D3EFC3E4D4A57B3C112EE073B03AEA /* ZSBarcodeScanner-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZSBarcodeScanner-prefix.pch"; sourceTree = "<group>"; };
@@ -54,40 +57,40 @@
 		52D00B1EDC01F17885E8A3173C56896D /* Pods-ZSBarcodeScanner_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZSBarcodeScanner_Example-Info.plist"; sourceTree = "<group>"; };
 		5D8D53B446F018DE1B23FDC6401D95C9 /* ZSBarcodeScanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZSBarcodeScanner.release.xcconfig; sourceTree = "<group>"; };
 		71BBC54EBB45E447F19A7ED367473173 /* Pods-ZSBarcodeScanner_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZSBarcodeScanner_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		77A50EB495027F92508761836D2D7847 /* Pods-ZSBarcodeScanner_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ZSBarcodeScanner_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		7B5F17D5670B596FFB43459A46601BF3 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		7B5F17D5670B596FFB43459A46601BF3 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		7E6386994D3BE5EF3EB675308398EB03 /* Pods-ZSBarcodeScanner_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZSBarcodeScanner_Tests-Info.plist"; sourceTree = "<group>"; };
 		7E9E58162D4F0BD790123A57A72DCDBC /* ZSBarcodeScanner-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZSBarcodeScanner-umbrella.h"; sourceTree = "<group>"; };
 		8A4CBCC5595BF548A68D43C37E94D2CF /* Pods-ZSBarcodeScanner_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZSBarcodeScanner_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		965424F51F2BF7BBEEA4899DDDEEBE42 /* ZSBarcodeScannerDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZSBarcodeScannerDelegate.swift; path = ZSBarcodeScanner/Classes/ZSBarcodeScannerDelegate.swift; sourceTree = "<group>"; };
 		96589537EAA429A29E5160C0BE42A1B2 /* ZSBarcodeScannerViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZSBarcodeScannerViewController.swift; path = ZSBarcodeScanner/Classes/ZSBarcodeScannerViewController.swift; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A5694E485C93BCD17C70711D4936E9AC /* Pods-ZSBarcodeScanner_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ZSBarcodeScanner_Example-dummy.m"; sourceTree = "<group>"; };
 		A9611758EA968C721E25934305728A2C /* ZSBarcodeScanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZSBarcodeScanner.debug.xcconfig; sourceTree = "<group>"; };
-		C197ED0841433AD01C39419EBEE69A8C /* Pods_ZSBarcodeScanner_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZSBarcodeScanner_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C197ED0841433AD01C39419EBEE69A8C /* Pods_ZSBarcodeScanner_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ZSBarcodeScanner_Tests.framework; path = "Pods-ZSBarcodeScanner_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDD60B11C66FF86AF38DF44E4E41DFFB /* Pods-ZSBarcodeScanner_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ZSBarcodeScanner_Example.modulemap"; sourceTree = "<group>"; };
 		D159FC1C2B11CBB12014D8D3DB4EF5DB /* ZSBarcodeScanner-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ZSBarcodeScanner-Info.plist"; sourceTree = "<group>"; };
 		D5D5DB5F488935FCF221382F8B0DEBA5 /* Pods-ZSBarcodeScanner_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZSBarcodeScanner_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		DCC67806AB3A3D30DE028EAB740DFAB5 /* Pods-ZSBarcodeScanner_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ZSBarcodeScanner_Tests-dummy.m"; sourceTree = "<group>"; };
-		DE6C648617616F83F9AC73BDA3EEE85D /* Pods_ZSBarcodeScanner_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZSBarcodeScanner_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE6C648617616F83F9AC73BDA3EEE85D /* Pods_ZSBarcodeScanner_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ZSBarcodeScanner_Example.framework; path = "Pods-ZSBarcodeScanner_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8E5787E7B10AFD354F3B264F0F991CF /* Pods-ZSBarcodeScanner_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ZSBarcodeScanner_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		033635B7FDDF6D1CF0FA24279C29691F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C195F91586B8E6B90F93FA98C75546A8 /* Foundation.framework in Frameworks */,
+				9C536468475BD3D5594B3094F2D3975F /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		557F6C06386D92C367E3B4B888F92CCF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				BA4D8E4861EDB1AB7D2D69D7F8B4F8DA /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8BAA0CBB2518E74B0FDB8D59E3C35CFE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DBE08EDDF5C3B1FA25373E29BCF94D6F /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +144,14 @@
 			path = "Example/Pods/Target Support Files/ZSBarcodeScanner";
 			sourceTree = "<group>";
 		};
+		1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D325A42620E7427FB70FB046C7B7B240 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1E52AE39F0229BCAA9B30C38F153BD04 /* Pods-ZSBarcodeScanner_Example */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,14 +167,6 @@
 			);
 			name = "Pods-ZSBarcodeScanner_Example";
 			path = "Target Support Files/Pods-ZSBarcodeScanner_Example";
-			sourceTree = "<group>";
-		};
-		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */,
-			);
-			name = iOS;
 			sourceTree = "<group>";
 		};
 		6845BCAD8718CB0064D62C88D68CF565 /* Pod */ = {
@@ -190,18 +193,19 @@
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				070677734533AD8BE0597D6E61B5235E /* Development Pods */,
-				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
+				1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */,
 				E1BB08509E4B2AAD6922E01004981A9F /* Products */,
 				861C882FA4CDDD356B177567665BEF34 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
+		D325A42620E7427FB70FB046C7B7B240 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				578452D2E740E91742655AC8F1636D1F /* iOS */,
+				31FE7C6ECA71C614A5A667C679B23874 /* Foundation.framework */,
+				2FEFE490E4A06D19E868B2B9014BB8BF /* QuartzCore.framework */,
 			);
-			name = Frameworks;
+			name = iOS;
 			sourceTree = "<group>";
 		};
 		E1BB08509E4B2AAD6922E01004981A9F /* Products */ = {
@@ -229,14 +233,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		259C4A7E64A3671F1C0B19D80F12849F /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8EC33635B59B2CA9CD9A7D0D9C32EA5D /* ZSBarcodeScanner-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		42269E5E6355979F21D6CE2F370FC0F2 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -253,17 +249,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B27C1A460B024D77C074D14C793AA3FF /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FF5E327A9591A887416B175A350406E /* ZSBarcodeScanner-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		3B970ABF9EF0C443A517E67A892B1216 /* ZSBarcodeScanner */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2770327C5C186E9067F175F64CAFF719 /* Build configuration list for PBXNativeTarget "ZSBarcodeScanner" */;
+			buildConfigurationList = 84B049C231C1DC4E0F2316ED3DBAC12D /* Build configuration list for PBXNativeTarget "ZSBarcodeScanner" */;
 			buildPhases = (
-				259C4A7E64A3671F1C0B19D80F12849F /* Headers */,
-				C1891A51CC772E57F2F34C674E42D0C3 /* Sources */,
-				8BAA0CBB2518E74B0FDB8D59E3C35CFE /* Frameworks */,
-				530D1E2B003DE00A81019A1191B4839B /* Resources */,
+				B27C1A460B024D77C074D14C793AA3FF /* Headers */,
+				A5F573620DA8638759CD3333119E80C4 /* Sources */,
+				033635B7FDDF6D1CF0FA24279C29691F /* Frameworks */,
+				7FB773FFC6EECC5CFDD1B6E577A1D985 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -286,7 +290,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				7B0A14EF7A1521D3B71A93449E97823D /* PBXTargetDependency */,
+				A6C0F3425B5984B947E5CE6C87300A20 /* PBXTargetDependency */,
 			);
 			name = "Pods-ZSBarcodeScanner_Tests";
 			productName = "Pods-ZSBarcodeScanner_Tests";
@@ -342,7 +346,7 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		530D1E2B003DE00A81019A1191B4839B /* Resources */ = {
+		7FB773FFC6EECC5CFDD1B6E577A1D985 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -382,13 +386,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C1891A51CC772E57F2F34C674E42D0C3 /* Sources */ = {
+		A5F573620DA8638759CD3333119E80C4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BE90356C2F38BC334E9958684FA7E6F /* ZSBarcodeScanner-dummy.m in Sources */,
-				F03427A64B4E960013621DF75DF28A14 /* ZSBarcodeScannerDelegate.swift in Sources */,
-				18C88BB40D59CAB84299CD3C5779596F /* ZSBarcodeScannerViewController.swift in Sources */,
+				C6FF2697B0EC15E9851871E4C5CD7094 /* ZSBarcodeScanner-dummy.m in Sources */,
+				929858DE8D932B1A7BAA5580A044EC80 /* ZSBarcodeScannerDelegate.swift in Sources */,
+				C123BBBB8D8C0446DA78EAFF3AE0F790 /* ZSBarcodeScannerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,48 +405,15 @@
 			target = 3B970ABF9EF0C443A517E67A892B1216 /* ZSBarcodeScanner */;
 			targetProxy = 5D8E75D93962551463787C00E84CE540 /* PBXContainerItemProxy */;
 		};
-		7B0A14EF7A1521D3B71A93449E97823D /* PBXTargetDependency */ = {
+		A6C0F3425B5984B947E5CE6C87300A20 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-ZSBarcodeScanner_Example";
 			target = DB941EE62E20BDD3515B9360755F06CB /* Pods-ZSBarcodeScanner_Example */;
-			targetProxy = A97F0EFD73E0AFE1F380531B0A38C04D /* PBXContainerItemProxy */;
+			targetProxy = 51F595957BFB6205B6FA96136EA12020 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		15043C73F6C4BC70CE36A58FC1E980ED /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5D8D53B446F018DE1B23FDC6401D95C9 /* ZSBarcodeScanner.release.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/ZSBarcodeScanner/ZSBarcodeScanner-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ZSBarcodeScanner/ZSBarcodeScanner-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 0.2.2;
-				MODULEMAP_FILE = "Target Support Files/ZSBarcodeScanner/ZSBarcodeScanner.modulemap";
-				PRODUCT_MODULE_NAME = ZSBarcodeScanner;
-				PRODUCT_NAME = ZSBarcodeScanner;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		25AD9454612BF454A1E3DC4CD4FA8C6D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -509,9 +480,9 @@
 			};
 			name = Debug;
 		};
-		2F3FFD1E24687D04C07754433CA7B586 /* Debug */ = {
+		6E99E01FF92F1F09FB08B58B6E8EFAB2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A9611758EA968C721E25934305728A2C /* ZSBarcodeScanner.debug.xcconfig */;
+			baseConfigurationReference = 5D8D53B446F018DE1B23FDC6401D95C9 /* ZSBarcodeScanner.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -527,19 +498,19 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 0.2.2;
 				MODULEMAP_FILE = "Target Support Files/ZSBarcodeScanner/ZSBarcodeScanner.modulemap";
 				PRODUCT_MODULE_NAME = ZSBarcodeScanner;
 				PRODUCT_NAME = ZSBarcodeScanner;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
 		8CC354E36BA4A394546F6A05E020468E /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -693,11 +664,43 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
+		};
+		D12CBC81DE5E2B653266E498CDF5C511 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A9611758EA968C721E25934305728A2C /* ZSBarcodeScanner.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/ZSBarcodeScanner/ZSBarcodeScanner-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ZSBarcodeScanner/ZSBarcodeScanner-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ZSBarcodeScanner/ZSBarcodeScanner.modulemap";
+				PRODUCT_MODULE_NAME = ZSBarcodeScanner;
+				PRODUCT_NAME = ZSBarcodeScanner;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
 		};
 		E930940362572C067CBF4EB34478F9E6 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -753,20 +756,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2770327C5C186E9067F175F64CAFF719 /* Build configuration list for PBXNativeTarget "ZSBarcodeScanner" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2F3FFD1E24687D04C07754433CA7B586 /* Debug */,
-				15043C73F6C4BC70CE36A58FC1E980ED /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				25AD9454612BF454A1E3DC4CD4FA8C6D /* Debug */,
 				CA547D2C7E9A8A153DC2B27FBE00B112 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84B049C231C1DC4E0F2316ED3DBAC12D /* Build configuration list for PBXNativeTarget "ZSBarcodeScanner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D12CBC81DE5E2B653266E498CDF5C511 /* Debug */,
+				6E99E01FF92F1F09FB08B58B6E8EFAB2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

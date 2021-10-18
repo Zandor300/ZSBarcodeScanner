@@ -39,5 +39,6 @@ A simple barcode scanner with support for switching between cameras.
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'UIKit'
+  s.frameworks = 'QuartzCore'
   # s.dependency 'AFNetworking', '~> 2.3'
 end
