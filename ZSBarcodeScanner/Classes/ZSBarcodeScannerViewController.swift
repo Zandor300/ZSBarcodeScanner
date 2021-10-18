@@ -150,8 +150,6 @@ public class ZSBarcodeScannerViewController: UIViewController {
         let backButton = UIBarButtonItem(image: closeGlyph, style: .plain, target: self, action: #selector(cancel))
         backButton.tintColor = .orange
         self.navigationItem.rightBarButtonItem = backButton
-
-        setupFrameView()
     }
 
     @objc func cancel() {
@@ -353,9 +351,14 @@ public class ZSBarcodeScannerViewController: UIViewController {
         view.bringSubviewToFront(overlayView)
 
         if !barcodeFrameView.isDescendant(of: view) {
+            barcodeFrameView.layer.opacity = 0
             view.addSubview(barcodeFrameView)
         }
         view.bringSubviewToFront(barcodeFrameView)
+
+        UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear) {
+            self.barcodeFrameView.layer.opacity = 1
+        }
     }
 
     private func animateScanBox(to rect: CGRect, completion: @escaping () -> Void) {
