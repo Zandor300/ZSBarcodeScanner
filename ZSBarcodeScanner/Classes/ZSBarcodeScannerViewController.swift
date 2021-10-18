@@ -40,9 +40,27 @@ public class ZSBarcodeScannerViewController: UIViewController {
     public static var defaultErrorOkButtonText = "OK"
     public static var defaultErrorSettingsButtonText = "Settings"
 
-    public static var defaultCloseGlyph = UIImage(named: "Close", in: Bundle(for: classForCoder()), compatibleWith: nil)
-    public static var defaultFlashOnGlyph = UIImage(named: "FlashOn", in: Bundle(for: classForCoder()), compatibleWith: nil)
-    public static var defaultFlashOffGlyph = UIImage(named: "FlashOff", in: Bundle(for: classForCoder()), compatibleWith: nil)
+    public static var defaultCloseGlyph: UIImage? {
+        if #available(iOS 13.0, *) {
+            return UIImage(systemName: "multiply.circle.fill")
+        } else {
+            return UIImage(named: "Close", in: Bundle(for: classForCoder()), compatibleWith: nil)
+        }
+    }
+    public static var defaultFlashOnGlyph: UIImage? {
+        if #available(iOS 13.0, *) {
+            return UIImage(systemName: "bolt.fill")
+        } else {
+            return UIImage(named: "FlashOn", in: Bundle(for: classForCoder()), compatibleWith: nil)
+        }
+    }
+    public static var defaultFlashOffGlyph: UIImage? {
+        if #available(iOS 13.0, *) {
+            return UIImage(systemName: "bolt.slash.fill")
+        } else {
+            return UIImage(named: "FlashOff", in: Bundle(for: classForCoder()), compatibleWith: nil)
+        }
+    }
 
     // Variables to customize the barcode scanner during launching from default settings.
     public var prompt: String? = defaultPrompt
@@ -80,6 +98,16 @@ public class ZSBarcodeScannerViewController: UIViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+
+        if ZSBarcodeScannerViewController.defaultCloseGlyph == nil {
+            print("ZSBarcodeScanner Warning: defaultCloseGlyph is nil")
+        }
+        if ZSBarcodeScannerViewController.defaultFlashOnGlyph == nil {
+            print("ZSBarcodeScanner Warning: defaultFlashOnGlyph is nil")
+        }
+        if ZSBarcodeScannerViewController.defaultFlashOffGlyph == nil {
+            print("ZSBarcodeScanner Warning: defaultFlashOffGlyph is nil")
+        }
 
         self.setNeedsStatusBarAppearanceUpdate()
 
