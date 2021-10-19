@@ -160,8 +160,8 @@ public class ZSBarcodeScannerViewController: UIViewController {
         self.flashSetState(!(currentDevice?.isTorchActive ?? false))
     }
 
-    public override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
 
         DispatchQueue.global(qos: .background).async {
             if self.captureSession.isRunning {
@@ -222,33 +222,37 @@ public class ZSBarcodeScannerViewController: UIViewController {
         if #available(iOS 13.0, *) {
             deviceTypes.append(.builtInUltraWideCamera)
         }
-        let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: deviceTypes, mediaType: nil, position: .back)
-        let devices = discoverySession.devices
-        if devices.isEmpty {
-            showGeneralErrorAlert()
-            return
-        }
 
-        for allowedCamera in allowedCameras {
-            if let device = devices.first(where: { device -> Bool in return device.deviceType == allowedCamera }) {
-                self.devices.append(device)
+        if self.devices.count == 0 {
+            let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: deviceTypes, mediaType: nil, position: .back)
+            let devices = discoverySession.devices
+            if devices.isEmpty {
+                showGeneralErrorAlert()
+                return
+            }
+
+            for allowedCamera in allowedCameras {
+                if let device = devices.first(where: { device -> Bool in return device.deviceType == allowedCamera }) {
+                    self.devices.append(device)
+                }
+            }
+
+            self.currentDevice = self.devices.first!
+
+            if devices.count > 1 {
+                let items: [String] = self.devices.map { device -> String in
+                    return cameraNames[device.deviceType] ?? "Unknown"
+                }
+                segmentedControl = UISegmentedControl(items: items)
+                segmentedControl.tintColor = .white
+                segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
+                segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
+                segmentedControl.selectedSegmentIndex = 0
+                segmentedControl.addTarget(self, action: #selector(didSelectSegmentedControl), for: .valueChanged)
+                self.navigationItem.titleView = segmentedControl
             }
         }
 
-        if devices.count > 1 {
-            let items: [String] = self.devices.map { device -> String in
-                return cameraNames[device.deviceType] ?? "Unknown"
-            }
-            segmentedControl = UISegmentedControl(items: items)
-            segmentedControl.tintColor = .white
-            segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
-            segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
-            segmentedControl.selectedSegmentIndex = 0
-            segmentedControl.addTarget(self, action: #selector(didSelectSegmentedControl), for: .valueChanged)
-            self.navigationItem.titleView = segmentedControl
-        }
-
-        self.currentDevice = self.devices.first!
         setupTorch()
         setupCapture(with: currentDevice!)
     }
@@ -260,8 +264,8 @@ public class ZSBarcodeScannerViewController: UIViewController {
     }
 
     private func setupTorch() {
-        if currentDevice?.hasTorch ?? false {
-            flashButton = UIBarButtonItem(image: flashOffGlyph, style: .plain, target: self, action: #selector(toggleFlash))
+        if let currentDevice = currentDevice, currentDevice.hasTorch {
+            flashButton = UIBarButtonItem(image: currentDevice.torchMode == .on ? flashOnGlyph : flashOffGlyph, style: .plain, target: self, action: #selector(toggleFlash))
             flashButton.tintColor = UIColor.orange
             self.navigationItem.leftBarButtonItem = flashButton
         } else {
@@ -287,8 +291,6 @@ public class ZSBarcodeScannerViewController: UIViewController {
 
                 metadataOutput.setMetadataObjectsDelegate(self, queue: .global(qos: .background))
                 metadataOutput.metadataObjectTypes = self.allowedBarcodeTypes
-            } else {
-                print("Could not add metadata output")
             }
 
             self.startCaptureSession()
