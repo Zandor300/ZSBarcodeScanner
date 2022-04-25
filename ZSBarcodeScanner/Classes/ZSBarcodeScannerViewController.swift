@@ -96,6 +96,8 @@ public class ZSBarcodeScannerViewController: UIViewController {
     public var scanPostAnimationDelay = defaultScanPostAnimationDelay
     public var scanHapticFeedback = defaultScanHapticFeedback
 
+    public var automaticallyDismissOnBarcodeScan: Bool = true
+
     // MARK: Main code
 
     public weak var delegate: ZSBarcodeScannerDelegate?
@@ -487,15 +489,23 @@ extension ZSBarcodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate
                     if self.showScanningBox, self.scanAnimation, let barCodeObject = self.previewLayer?.transformedMetadataObject(for: metadata) {
                         self.animateScanBox(to: barCodeObject.bounds) {
                             DispatchQueue.main.asyncAfter(deadline: .now() + self.scanPostAnimationDelay) {
-                                self.dismiss(animated: true, completion: {
+                                if self.automaticallyDismissOnBarcodeScan {
+                                    self.dismiss(animated: true, completion: {
+                                        self.delegate?.barcodeRead(scanner: self, data: code)
+                                    })
+                                } else {
                                     self.delegate?.barcodeRead(scanner: self, data: code)
-                                })
+                                }
                             }
                         }
                     } else {
-                        self.dismiss(animated: true, completion: {
+                        if self.automaticallyDismissOnBarcodeScan {
+                            self.dismiss(animated: true, completion: {
+                                self.delegate?.barcodeRead(scanner: self, data: code)
+                            })
+                        } else {
                             self.delegate?.barcodeRead(scanner: self, data: code)
-                        })
+                        }
                     }
                 }
                 return
