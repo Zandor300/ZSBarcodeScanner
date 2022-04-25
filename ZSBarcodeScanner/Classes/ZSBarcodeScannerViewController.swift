@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 import QuartzCore
 
-public class ZSBarcodeScannerViewController: UIViewController {
+open class ZSBarcodeScannerViewController: UIViewController {
 
     private let generator = UINotificationFeedbackGenerator()
 
@@ -123,7 +123,7 @@ public class ZSBarcodeScannerViewController: UIViewController {
         return .lightContent
     }
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
 
         if ZSBarcodeScannerViewController.defaultCloseGlyph == nil {
