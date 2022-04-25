@@ -11,6 +11,12 @@ import QuartzCore
 
 open class ZSBarcodeScannerViewController: UIViewController {
 
+    public enum BarButtonItemType {
+        case close
+        case flash
+        case none
+    }
+
     private let generator = UINotificationFeedbackGenerator()
 
     // Default variables that can be set once during application didFinishLaunchingWithOptions.
@@ -66,6 +72,9 @@ open class ZSBarcodeScannerViewController: UIViewController {
     public static var defaultFlashOnGlyph = internalDefaultFlashOnGlyph
     public static var defaultFlashOffGlyph = internalDefaultFlashOffGlyph
 
+    public static var defaultLeftBarButtonItemType = BarButtonItemType.flash
+    public static var defaultRightBarButtonItemType = BarButtonItemType.close
+
     // Scan effects
     public static var defaultShowScanningBox = true
     public static var defaultScanAnimation = true
@@ -90,6 +99,9 @@ open class ZSBarcodeScannerViewController: UIViewController {
     public var flashOnGlyph = defaultFlashOnGlyph
     public var flashOffGlyph = defaultFlashOffGlyph
 
+    public var leftBarButtonItemType = defaultLeftBarButtonItemType
+    public var rightBarButtonItemType = defaultRightBarButtonItemType
+
     public var showScanningBox = defaultShowScanningBox
     public var scanAnimation = defaultScanAnimation
     public var scanAnimationDuration = defaultScanAnimationDuration
@@ -110,7 +122,7 @@ open class ZSBarcodeScannerViewController: UIViewController {
     var currentDevice: AVCaptureDevice?
     var devices = [AVCaptureDevice]()
 
-    var flashButton = UIBarButtonItem()
+    var flashButton: UIBarButtonItem?
     var segmentedControl = UISegmentedControl()
 
     var outputBarcode: String?
@@ -151,7 +163,12 @@ open class ZSBarcodeScannerViewController: UIViewController {
 
         let backButton = UIBarButtonItem(image: closeGlyph, style: .plain, target: self, action: #selector(cancel))
         backButton.tintColor = .orange
-        self.navigationItem.rightBarButtonItem = backButton
+        if leftBarButtonItemType == .close {
+            self.navigationItem.leftBarButtonItem = backButton
+        }
+        if rightBarButtonItemType == .close {
+            self.navigationItem.rightBarButtonItem = backButton
+        }
     }
 
     public func resetScanner() {
@@ -273,10 +290,16 @@ open class ZSBarcodeScannerViewController: UIViewController {
     private func setupTorch() {
         if let currentDevice = currentDevice, currentDevice.hasTorch {
             flashButton = UIBarButtonItem(image: currentDevice.torchMode == .on ? flashOnGlyph : flashOffGlyph, style: .plain, target: self, action: #selector(toggleFlash))
-            flashButton.tintColor = UIColor.orange
-            self.navigationItem.leftBarButtonItem = flashButton
+            flashButton?.tintColor = UIColor.orange
         } else {
-            self.navigationItem.leftBarButtonItem = nil
+            flashButton = nil
+        }
+
+        if leftBarButtonItemType == .flash {
+            self.navigationItem.leftBarButtonItem = flashButton
+        }
+        if rightBarButtonItemType == .flash {
+            self.navigationItem.rightBarButtonItem = flashButton
         }
     }
 
@@ -427,7 +450,7 @@ open class ZSBarcodeScannerViewController: UIViewController {
                 try device.lockForConfiguration()
                 device.torchMode = state ? .on : .off
                 device.unlockForConfiguration()
-                self.flashButton.image = state ? flashOnGlyph : flashOffGlyph
+                self.flashButton?.image = state ? flashOnGlyph : flashOffGlyph
             }
         } catch {
             print("Device Flash Error")
