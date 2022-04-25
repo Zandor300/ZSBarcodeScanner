@@ -154,6 +154,11 @@ public class ZSBarcodeScannerViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = backButton
     }
 
+    public func resetScanner() {
+        self.startCaptureSession()
+        self.outputBarcode = nil
+    }
+
     @objc func cancel() {
         self.dismiss(animated: true, completion: nil)
     }
@@ -402,11 +407,14 @@ public class ZSBarcodeScannerViewController: UIViewController {
     }
 
     func setupPreviewLayer() {
-        self.previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
-        self.previewLayer?.videoGravity = .resizeAspectFill
+        if self.previewLayer == nil {
+            self.previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
+            self.previewLayer?.videoGravity = .resizeAspectFill
+        }
 
         DispatchQueue.main.async {
             self.previewLayer?.frame = self.view.bounds
+            self.previewLayer?.removeFromSuperlayer()
             self.view.layer.addSublayer(self.previewLayer!)
             self.handleDeviceRotation()
             self.setupFrameView()
