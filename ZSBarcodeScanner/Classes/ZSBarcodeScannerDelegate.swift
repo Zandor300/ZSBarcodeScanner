@@ -12,4 +12,12 @@ public protocol ZSBarcodeScannerDelegate: AnyObject {
 
     func barcodeRead(scanner: ZSBarcodeScannerViewController, data: String)
 
+    func didSetupScannerView()
+
+}
+
+public extension ZSBarcodeScannerDelegate {
+
+    func didSetupScannerView() {}
+
 }
