@@ -211,17 +211,18 @@ open class ZSBarcodeScannerViewController: UIViewController {
                         self.setupCameras()
                     } else {
                         let alert = UIAlertController(title: self.errorNoCameraPermissionTitle, message: self.errorNoCameraPermissionDescription, preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: self.errorSettingsButtonText, style: .default, handler: { _ in
-                            if #available(iOS 10.0, *), let settingsUrl = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsUrl) {
-                                alert.addAction(UIAlertAction(title: self.errorSettingsButtonText, style: .default, handler: { _ in
-                                    UIApplication.shared.open(settingsUrl, options: [:])
+                        if #available(iOS 10.0, *), let settingsUrl = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsUrl) {
+                            alert.addAction(UIAlertAction(title: self.errorSettingsButtonText, style: .default, handler: { _ in
+                                UIApplication.shared.open(settingsUrl, options: [:])
+                                if self.automaticallyDismissOnBarcodeScan {
                                     self.cancel()
-                                }))
-                            }
-                            self.cancel()
-                        }))
+                                }
+                            }))
+                        }
                         alert.addAction(UIAlertAction(title: self.errorOkButtonText, style: .cancel, handler: { _ in
-                            self.cancel()
+                            if self.automaticallyDismissOnBarcodeScan {
+                                self.cancel()
+                            }
                         }))
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -492,7 +493,9 @@ open class ZSBarcodeScannerViewController: UIViewController {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: self.errorAlertTitle, message: self.errorAlertDescription, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: self.errorOkButtonText, style: .cancel, handler: { _ in
-                self.cancel()
+                if self.automaticallyDismissOnBarcodeScan {
+                    self.cancel()
+                }
             }))
             self.present(alert, animated: true, completion: nil)
         }
