@@ -177,7 +177,7 @@ open class ZSBarcodeScannerViewController: UIViewController {
     }
 
     @objc func cancel() {
-        self.dismiss(animated: true, completion: nil)
+        handleDismiss()
     }
 
     @objc func toggleFlash() {
@@ -215,13 +215,13 @@ open class ZSBarcodeScannerViewController: UIViewController {
                             if #available(iOS 10.0, *), let settingsUrl = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsUrl) {
                                 alert.addAction(UIAlertAction(title: self.errorSettingsButtonText, style: .default, handler: { _ in
                                     UIApplication.shared.open(settingsUrl, options: [:])
-                                    self.dismiss(animated: true, completion: nil)
+                                    self.cancel()
                                 }))
                             }
-                            self.dismiss(animated: true, completion: nil)
+                            self.cancel()
                         }))
                         alert.addAction(UIAlertAction(title: self.errorOkButtonText, style: .cancel, handler: { _ in
-                            self.dismiss(animated: true, completion: nil)
+                            self.cancel()
                         }))
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -492,9 +492,26 @@ open class ZSBarcodeScannerViewController: UIViewController {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: self.errorAlertTitle, message: self.errorAlertDescription, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: self.errorOkButtonText, style: .cancel, handler: { _ in
-                self.dismiss(animated: true, completion: nil)
+                self.cancel()
             }))
             self.present(alert, animated: true, completion: nil)
+        }
+    }
+
+    func handleDismiss(_ onCompletion: (() -> Void)? = nil) {
+        if let navigationController = self.navigationController, navigationController.viewControllers.first != self {
+            navigationController.popViewController(animated: true)
+            if let onCompletion = onCompletion {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                    onCompletion()
+                }
+            }
+        } else {
+            self.dismiss(animated: true) {
+                if let onCompletion = onCompletion {
+                    onCompletion()
+                }
+            }
         }
     }
 
@@ -515,6 +532,16 @@ extension ZSBarcodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate
                 }
                 self.currentDevice?.unlockForConfiguration()
 
+                let afterAnimation = {
+                    if self.automaticallyDismissOnBarcodeScan {
+                        self.handleDismiss {
+                            self.delegate?.barcodeRead(scanner: self, data: code)
+                        }
+                    } else {
+                        self.delegate?.barcodeRead(scanner: self, data: code)
+                    }
+                }
+
                 DispatchQueue.main.async {
                     if self.scanHapticFeedback {
                         self.generator.notificationOccurred(.success)
@@ -522,23 +549,11 @@ extension ZSBarcodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate
                     if self.showScanningBox, self.scanAnimation, let barCodeObject = self.previewLayer?.transformedMetadataObject(for: metadata) {
                         self.animateScanBox(to: barCodeObject.bounds) {
                             DispatchQueue.main.asyncAfter(deadline: .now() + self.scanPostAnimationDelay) {
-                                if self.automaticallyDismissOnBarcodeScan {
-                                    self.dismiss(animated: true, completion: {
-                                        self.delegate?.barcodeRead(scanner: self, data: code)
-                                    })
-                                } else {
-                                    self.delegate?.barcodeRead(scanner: self, data: code)
-                                }
+                                afterAnimation()
                             }
                         }
                     } else {
-                        if self.automaticallyDismissOnBarcodeScan {
-                            self.dismiss(animated: true, completion: {
-                                self.delegate?.barcodeRead(scanner: self, data: code)
-                            })
-                        } else {
-                            self.delegate?.barcodeRead(scanner: self, data: code)
-                        }
+                        afterAnimation()
                     }
                 }
                 return
