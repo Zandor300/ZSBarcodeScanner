@@ -20,6 +20,14 @@ class ViewController: UIViewController {
         self.present(navigationController, animated: true)
     }
 
+    @IBAction func didTapPushScanner(_ sender: Any) {
+        let barcodeScanner = ZSBarcodeScannerViewController()
+        barcodeScanner.delegate = self
+        barcodeScanner.leftBarButtonItemType = .none
+        barcodeScanner.rightBarButtonItemType = .flash
+        self.navigationController?.pushViewController(barcodeScanner, animated: true)
+    }
+
 }
 
 extension ViewController: ZSBarcodeScannerDelegate {
