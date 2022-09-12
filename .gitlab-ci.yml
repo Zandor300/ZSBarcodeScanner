@@ -17,7 +17,7 @@ build:
     # - cd ../
     - set -o pipefail && xcodebuild build -workspace Example/ZSBarcodeScanner.xcworkspace -scheme ZSBarcodeScanner -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | bundle exec xcpretty
   tags:
-    - xcode12
+    - xcode14
   needs: []
 
 #build-tvos:
@@ -29,7 +29,7 @@ build:
 #    # - cd ../
 #    - set -o pipefail && xcodebuild build -workspace Example/GeneralToolsFramework.xcworkspace -scheme GeneralToolsFramework -sdk appletvsimulator ONLY_ACTIVE_ARCH=NO | bundle exec xcpretty
 #  tags:
-#    - xcode12
+#    - xcode14
 #  needs: []
 
 #test:
@@ -41,7 +41,7 @@ build:
 #    # - cd ../
 #    - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/GeneralToolsFramework.xcworkspace -scheme GeneralToolsFramework-Example -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 11,OS=latest" ONLY_ACTIVE_ARCH=NO | bundle exec xcpretty -r junit
 #  tags:
-#    - xcode12
+#    - xcode14
 #  artifacts:
 #    paths:
 #      - build/reports/junit.xml
@@ -55,7 +55,7 @@ cocoapods-lint:
     - bundle install
     - bundle exec pod lib lint --allow-warnings
   tags:
-    - xcode12
+    - xcode14
   needs: []
 
 swiftlint:
@@ -63,7 +63,7 @@ swiftlint:
   script:
     - swiftlint
   tags:
-    - xcode12
+    - xcode14
   needs: []
 
 #jazzy-docs:
@@ -72,7 +72,7 @@ swiftlint:
 #    - bundle install
 #    - bundle exec jazzy --podspec GeneralToolsFramework.podspec --output docs
 #  tags:
-#    - xcode12
+#    - xcode14
 #  artifacts:
 #    paths:
 #      - docs
@@ -83,7 +83,7 @@ swiftlint:
 #  script:
 #    - mv docs/ public/
 #  tags:
-#    - xcode12
+#    - xcode14
 #  artifacts:
 #    paths:
 #      - public
