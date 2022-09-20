@@ -393,7 +393,7 @@ open class ZSBarcodeScannerViewController: UIViewController {
             self.barcodeFrameView.layer.opacity = 1
         }
 
-        delegate?.didSetupScannerView()
+        delegate?.didSetupScannerView(scanner: self)
     }
 
     private func animateScanBox(to rect: CGRect, completion: @escaping () -> Void) {
