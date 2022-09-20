@@ -29,7 +29,7 @@ A simple barcode scanner with support for switching between cameras.
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.swift_version = '5.0'
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '11.0'
 
   s.source_files = 'ZSBarcodeScanner/Classes/**/*'
   
