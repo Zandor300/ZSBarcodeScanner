@@ -528,7 +528,10 @@ extension ZSBarcodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate
         }
         for metadata in metadataObjects {
             if let readableObject = metadata as? AVMetadataMachineReadableCodeObject, let code = readableObject.stringValue {
-                print(code)
+                guard delegate?.shouldReadBarcode(scanner: self, data: code) ?? true else {
+                    continue
+                }
+                print("[ZSBarcodeScanner] Scanned: \(code)")
                 outputBarcode = code
                 if self.captureSession.isRunning {
                     self.captureSession.stopRunning()

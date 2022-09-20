@@ -10,6 +10,8 @@ import AVFoundation
 
 public protocol ZSBarcodeScannerDelegate: AnyObject {
 
+    func shouldReadBarcode(scanner: ZSBarcodeScannerViewController, data: String) -> Bool
+
     func barcodeRead(scanner: ZSBarcodeScannerViewController, data: String)
 
     @available(*, deprecated, renamed: "didSetupScannerView(scanner:)")
@@ -20,6 +22,10 @@ public protocol ZSBarcodeScannerDelegate: AnyObject {
 }
 
 public extension ZSBarcodeScannerDelegate {
+
+    func shouldReadBarcode(scanner: ZSBarcodeScannerViewController, data: String) -> Bool {
+        return true
+    }
 
     func didSetupScannerView() {}
 
