@@ -39,14 +39,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0659A7884E27649BAF4F49EC10119852 /* ZSBarcodeScanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ZSBarcodeScanner.framework; path = ZSBarcodeScanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0F2FADE9AE4AC78B82492454E24E94DB /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		0659A7884E27649BAF4F49EC10119852 /* ZSBarcodeScanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZSBarcodeScanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F2FADE9AE4AC78B82492454E24E94DB /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		21FA17E6827D9B6511FB83D9B74A6284 /* Pods-ZSBarcodeScanner_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ZSBarcodeScanner_Example-frameworks.sh"; sourceTree = "<group>"; };
 		25C93A477536861826DD525B7F07FA17 /* ZSBarcodeScanner.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ZSBarcodeScanner.modulemap; sourceTree = "<group>"; };
 		2D41B8F211E1FBCB2723488005535CD7 /* Pods-ZSBarcodeScanner_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZSBarcodeScanner_Example.release.xcconfig"; sourceTree = "<group>"; };
 		2FEFE490E4A06D19E868B2B9014BB8BF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		31FE7C6ECA71C614A5A667C679B23874 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		32D37FDC4AD8DF8131B0E733AAFB2F95 /* ZSBarcodeScanner.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = ZSBarcodeScanner.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		32D37FDC4AD8DF8131B0E733AAFB2F95 /* ZSBarcodeScanner.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = ZSBarcodeScanner.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3B266606FA44FCE43916D51ACD0090D4 /* Pods-ZSBarcodeScanner_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ZSBarcodeScanner_Example-umbrella.h"; sourceTree = "<group>"; };
 		40D8F6FEDB38586ADD62EB2484BE5C30 /* Pods-ZSBarcodeScanner_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZSBarcodeScanner_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		48D3EFC3E4D4A57B3C112EE073B03AEA /* ZSBarcodeScanner-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZSBarcodeScanner-prefix.pch"; sourceTree = "<group>"; };
@@ -58,21 +58,21 @@
 		5D8D53B446F018DE1B23FDC6401D95C9 /* ZSBarcodeScanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZSBarcodeScanner.release.xcconfig; sourceTree = "<group>"; };
 		71BBC54EBB45E447F19A7ED367473173 /* Pods-ZSBarcodeScanner_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZSBarcodeScanner_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		77A50EB495027F92508761836D2D7847 /* Pods-ZSBarcodeScanner_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ZSBarcodeScanner_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		7B5F17D5670B596FFB43459A46601BF3 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		7B5F17D5670B596FFB43459A46601BF3 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		7E6386994D3BE5EF3EB675308398EB03 /* Pods-ZSBarcodeScanner_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZSBarcodeScanner_Tests-Info.plist"; sourceTree = "<group>"; };
 		7E9E58162D4F0BD790123A57A72DCDBC /* ZSBarcodeScanner-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZSBarcodeScanner-umbrella.h"; sourceTree = "<group>"; };
 		8A4CBCC5595BF548A68D43C37E94D2CF /* Pods-ZSBarcodeScanner_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZSBarcodeScanner_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		965424F51F2BF7BBEEA4899DDDEEBE42 /* ZSBarcodeScannerDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZSBarcodeScannerDelegate.swift; path = ZSBarcodeScanner/Classes/ZSBarcodeScannerDelegate.swift; sourceTree = "<group>"; };
 		96589537EAA429A29E5160C0BE42A1B2 /* ZSBarcodeScannerViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZSBarcodeScannerViewController.swift; path = ZSBarcodeScanner/Classes/ZSBarcodeScannerViewController.swift; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A5694E485C93BCD17C70711D4936E9AC /* Pods-ZSBarcodeScanner_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ZSBarcodeScanner_Example-dummy.m"; sourceTree = "<group>"; };
 		A9611758EA968C721E25934305728A2C /* ZSBarcodeScanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZSBarcodeScanner.debug.xcconfig; sourceTree = "<group>"; };
-		C197ED0841433AD01C39419EBEE69A8C /* Pods_ZSBarcodeScanner_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ZSBarcodeScanner_Tests.framework; path = "Pods-ZSBarcodeScanner_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C197ED0841433AD01C39419EBEE69A8C /* Pods_ZSBarcodeScanner_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZSBarcodeScanner_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDD60B11C66FF86AF38DF44E4E41DFFB /* Pods-ZSBarcodeScanner_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ZSBarcodeScanner_Example.modulemap"; sourceTree = "<group>"; };
 		D159FC1C2B11CBB12014D8D3DB4EF5DB /* ZSBarcodeScanner-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ZSBarcodeScanner-Info.plist"; sourceTree = "<group>"; };
 		D5D5DB5F488935FCF221382F8B0DEBA5 /* Pods-ZSBarcodeScanner_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZSBarcodeScanner_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		DCC67806AB3A3D30DE028EAB740DFAB5 /* Pods-ZSBarcodeScanner_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ZSBarcodeScanner_Tests-dummy.m"; sourceTree = "<group>"; };
-		DE6C648617616F83F9AC73BDA3EEE85D /* Pods_ZSBarcodeScanner_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ZSBarcodeScanner_Example.framework; path = "Pods-ZSBarcodeScanner_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE6C648617616F83F9AC73BDA3EEE85D /* Pods_ZSBarcodeScanner_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZSBarcodeScanner_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8E5787E7B10AFD354F3B264F0F991CF /* Pods-ZSBarcodeScanner_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ZSBarcodeScanner_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -323,7 +323,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1400;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -449,6 +449,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -496,7 +497,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/ZSBarcodeScanner/ZSBarcodeScanner-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/ZSBarcodeScanner/ZSBarcodeScanner-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/ZSBarcodeScanner/ZSBarcodeScanner.modulemap";
 				PRODUCT_MODULE_NAME = ZSBarcodeScanner;
@@ -527,7 +528,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-ZSBarcodeScanner_Tests/Pods-ZSBarcodeScanner_Tests-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-ZSBarcodeScanner_Tests/Pods-ZSBarcodeScanner_Tests.modulemap";
@@ -559,7 +560,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-ZSBarcodeScanner_Example/Pods-ZSBarcodeScanner_Example-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-ZSBarcodeScanner_Example/Pods-ZSBarcodeScanner_Example.modulemap";
@@ -591,7 +592,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-ZSBarcodeScanner_Tests/Pods-ZSBarcodeScanner_Tests-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-ZSBarcodeScanner_Tests/Pods-ZSBarcodeScanner_Tests.modulemap";
@@ -644,6 +645,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -664,8 +666,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -687,7 +688,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/ZSBarcodeScanner/ZSBarcodeScanner-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/ZSBarcodeScanner/ZSBarcodeScanner-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/ZSBarcodeScanner/ZSBarcodeScanner.modulemap";
 				PRODUCT_MODULE_NAME = ZSBarcodeScanner;
@@ -717,7 +718,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-ZSBarcodeScanner_Example/Pods-ZSBarcodeScanner_Example-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-ZSBarcodeScanner_Example/Pods-ZSBarcodeScanner_Example.modulemap";
