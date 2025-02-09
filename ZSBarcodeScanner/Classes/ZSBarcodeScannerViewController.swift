@@ -22,11 +22,11 @@ open class ZSBarcodeScannerViewController: UIViewController {
     // Default variables that can be set once during application didFinishLaunchingWithOptions.
     public static var defaultAllowedBarcodeTypes: [AVMetadataObject.ObjectType] = [.qr, .ean13, .upce, .dataMatrix, .code39, .code128, .code93]
     public static var defaultAllowedCameras: [AVCaptureDevice.DeviceType] = {
-        var cameras: [AVCaptureDevice.DeviceType] = [.builtInWideAngleCamera, .builtInTelephotoCamera]
         if #available(iOS 13.0, *) {
-            cameras.append(.builtInUltraWideCamera)
+            return [.builtInTripleCamera, .builtInDualWideCamera, .builtInDualCamera]
+        } else {
+            return [.builtInWideAngleCamera, .builtInTelephotoCamera]
         }
-        return cameras
     }()
     public static var defaultCameraNames: [AVCaptureDevice.DeviceType: String] = {
         var cameras: [AVCaptureDevice.DeviceType: String] = [
@@ -108,6 +108,9 @@ open class ZSBarcodeScannerViewController: UIViewController {
     public var scanPostAnimationDelay = defaultScanPostAnimationDelay
     public var scanHapticFeedback = defaultScanHapticFeedback
 
+    public var currentZoomFactor = CGFloat(1.0)
+    public var zoomFactors: [NSNumber] = [1.0]
+
     public var automaticallyDismissOnBarcodeScan: Bool = true
 
     // MARK: Main code
@@ -161,8 +164,11 @@ open class ZSBarcodeScannerViewController: UIViewController {
             self.navigationItem.scrollEdgeAppearance = appearance
         }
 
-        let backButton = UIBarButtonItem(image: closeGlyph, style: .plain, target: self, action: #selector(cancel))
+        var backButton = UIBarButtonItem(image: closeGlyph, style: .plain, target: self, action: #selector(cancel))
         backButton.tintColor = .orange
+        if #available(iOS 13.0, *) {
+            backButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(cancel))
+        }
         if leftBarButtonItemType == .close {
             self.navigationItem.leftBarButtonItem = backButton
         }
@@ -200,16 +206,10 @@ open class ZSBarcodeScannerViewController: UIViewController {
         super.viewWillAppear(animated)
         self.outputBarcode = nil
 
-        if AVCaptureDevice.authorizationStatus(for: .video) == .authorized {
-            DispatchQueue.main.async {
-                self.setupCameras()
-            }
-        } else {
+        guard AVCaptureDevice.authorizationStatus(for: .video) == .authorized else {
             AVCaptureDevice.requestAccess(for: .video) { (granted) in
                 DispatchQueue.main.async {
-                    if granted == true {
-                        self.setupCameras()
-                    } else {
+                    guard granted else {
                         let alert = UIAlertController(title: self.errorNoCameraPermissionTitle, message: self.errorNoCameraPermissionDescription, preferredStyle: .alert)
                         if #available(iOS 10.0, *), let settingsUrl = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsUrl) {
                             alert.addAction(UIAlertAction(title: self.errorSettingsButtonText, style: .default, handler: { _ in
@@ -225,8 +225,23 @@ open class ZSBarcodeScannerViewController: UIViewController {
                             }
                         }))
                         self.present(alert, animated: true, completion: nil)
+                        return
+                    }
+                    do {
+                        try self.setupCameras()
+                    } catch {
+                        self.showGeneralErrorAlert()
                     }
                 }
+            }
+            return
+        }
+
+        DispatchQueue.main.async {
+            do {
+                try self.setupCameras()
+            } catch {
+                self.showGeneralErrorAlert()
             }
         }
     }
@@ -242,37 +257,74 @@ open class ZSBarcodeScannerViewController: UIViewController {
         }
     }
 
-    private func setupCameras() {
-        var deviceTypes: [AVCaptureDevice.DeviceType] = [.builtInWideAngleCamera, .builtInTelephotoCamera]
-        if #available(iOS 13.0, *) {
-            deviceTypes.append(.builtInUltraWideCamera)
-        }
-
+    private func setupCameras() throws {
         if self.devices.count == 0 {
-            let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: deviceTypes, mediaType: nil, position: .back)
-            let devices = discoverySession.devices
+            let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: allowedCameras, mediaType: nil, position: .back)
+            devices = discoverySession.devices
             if devices.isEmpty {
                 showGeneralErrorAlert()
                 return
             }
 
-            for allowedCamera in allowedCameras {
-                if let device = devices.first(where: { device -> Bool in return device.deviceType == allowedCamera }) {
-                    self.devices.append(device)
+            if #available(iOS 13.0, *) {
+                // Prefer builtInDualWideCamera over builtInWideAngleCamera
+                if devices.contains(where: { $0.deviceType == .builtInDualWideCamera }), devices.contains(where: { $0.deviceType == .builtInWideAngleCamera }) {
+                    devices.removeAll(where: { $0.deviceType == .builtInWideAngleCamera })
+                }
+                // Prefer builtInDualWideCamera over builtInWideAngleCamera
+                if devices.contains(where: { $0.deviceType == .builtInDualCamera }), devices.contains(where: { $0.deviceType == .builtInTelephotoCamera }) {
+                    devices.removeAll(where: { $0.deviceType == .builtInTelephotoCamera })
                 }
             }
 
-            self.currentDevice = self.devices.first!
+            if devices.isEmpty {
+                showGeneralErrorAlert()
+                return
+            }
 
-            if devices.count > 1 {
-                let items: [String] = self.devices.map { device -> String in
-                    return cameraNames[device.deviceType] ?? "Unknown"
+            guard let selectedDevice = devices.first else {
+                showGeneralErrorAlert()
+                return
+            }
+
+            var defaultZoomFactorIndex = 0
+            currentZoomFactor = CGFloat(1.0)
+            zoomFactors = [1.0]
+            if #available(iOS 13.0, *) {
+                for zoomFactor in selectedDevice.virtualDeviceSwitchOverVideoZoomFactors {
+                    zoomFactors.append(zoomFactor)
+                }
+            }
+            if #available(iOS 13.0, *), selectedDevice.deviceType == .builtInTripleCamera || selectedDevice.deviceType == .builtInDualWideCamera {
+                defaultZoomFactorIndex = 1
+            }
+            currentZoomFactor = CGFloat(truncating: zoomFactors[defaultZoomFactorIndex])
+            print(currentZoomFactor)
+
+            currentDevice = selectedDevice
+
+            if selectedDevice.deviceType != .builtInWideAngleCamera {
+                var items: [String] = zoomFactors.map { zoomFactor -> String in
+                    return "\(CGFloat(truncating: zoomFactor))x"
+                }
+                if #available(iOS 18.0, *), selectedDevice.deviceType == .builtInTripleCamera {
+                    items = zoomFactors.map { zoomFactor -> String in
+                        let value = selectedDevice.displayVideoZoomFactorMultiplier * CGFloat(truncating: zoomFactor)
+                        if "\(value)".hasSuffix(".0") {
+                            return "\(Int(value))x"
+                        }
+                        return "\(value)x"
+                    }
                 }
                 segmentedControl = UISegmentedControl(items: items)
                 segmentedControl.tintColor = .white
                 segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
-                segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
-                segmentedControl.selectedSegmentIndex = 0
+                if #available(iOS 17.0, *) {
+                    segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
+                } else {
+                    segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
+                }
+                segmentedControl.selectedSegmentIndex = defaultZoomFactorIndex
                 segmentedControl.addTarget(self, action: #selector(didSelectSegmentedControl), for: .valueChanged)
                 self.navigationItem.titleView = segmentedControl
             }
@@ -283,9 +335,17 @@ open class ZSBarcodeScannerViewController: UIViewController {
     }
 
     @objc private func didSelectSegmentedControl() {
-        let device = devices[segmentedControl.selectedSegmentIndex]
-        currentDevice = device
-        changeDevice(to: device)
+        guard let device = currentDevice else {
+            return
+        }
+        do {
+            let currentZoomFactor = zoomFactors[segmentedControl.selectedSegmentIndex]
+            try device.lockForConfiguration()
+            device.ramp(toVideoZoomFactor: CGFloat(truncating: currentZoomFactor), withRate: 20)
+            device.unlockForConfiguration()
+        } catch {
+            showGeneralErrorAlert()
+        }
     }
 
     private func setupTorch() {
@@ -310,7 +370,7 @@ open class ZSBarcodeScannerViewController: UIViewController {
             return
         }
 
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .userInitiated).async {
             if self.captureSession.canAddInput(input) {
                 self.captureSession.addInput(input)
             }
@@ -324,7 +384,25 @@ open class ZSBarcodeScannerViewController: UIViewController {
                 metadataOutput.metadataObjectTypes = self.allowedBarcodeTypes
             }
 
+            if let currentDevce = self.currentDevice, #available(iOS 18.0, *) {
+                let zoomControl = AVCaptureSystemZoomSlider(device: currentDevce) { zoomFactor in
+                    self.segmentedControl.selectedSegmentIndex = -1
+                }
+                if self.captureSession.canAddControl(zoomControl) {
+                    self.captureSession.addControl(zoomControl)
+                }
+                self.captureSession.setControlsDelegate(self, queue: .global(qos: .userInitiated))
+            }
+
             self.startCaptureSession()
+
+            do {
+                try self.currentDevice?.lockForConfiguration()
+                self.currentDevice?.videoZoomFactor = self.currentZoomFactor
+                self.currentDevice?.unlockForConfiguration()
+            } catch {
+                print(error)
+            }
         }
     }
 
@@ -565,6 +643,22 @@ extension ZSBarcodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate
                 return
             }
         }
+    }
+
+}
+
+extension ZSBarcodeScannerViewController: AVCaptureSessionControlsDelegate {
+
+    public func sessionControlsDidBecomeActive(_ session: AVCaptureSession) {
+    }
+    
+    public func sessionControlsWillEnterFullscreenAppearance(_ session: AVCaptureSession) {
+    }
+    
+    public func sessionControlsWillExitFullscreenAppearance(_ session: AVCaptureSession) {
+    }
+    
+    public func sessionControlsDidBecomeInactive(_ session: AVCaptureSession) {
     }
 
 }
