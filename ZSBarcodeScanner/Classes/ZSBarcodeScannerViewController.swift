@@ -260,54 +260,60 @@ open class ZSBarcodeScannerViewController: UIViewController {
 
     private func setupCameras() throws {
         if self.devices.count == 0 {
-            let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: allowedCameras, mediaType: nil, position: .back)
-            devices = discoverySession.devices
-            if devices.isEmpty {
+            guard initialSetupCameras() else {
                 showGeneralErrorAlert()
                 return
             }
-
-            if #available(iOS 13.0, *) {
-                // Prefer builtInDualWideCamera over builtInWideAngleCamera
-                if devices.contains(where: { $0.deviceType == .builtInDualWideCamera }), devices.contains(where: { $0.deviceType == .builtInWideAngleCamera }) {
-                    devices.removeAll(where: { $0.deviceType == .builtInWideAngleCamera })
-                }
-                // Prefer builtInDualWideCamera over builtInWideAngleCamera
-                if devices.contains(where: { $0.deviceType == .builtInDualCamera }), devices.contains(where: { $0.deviceType == .builtInTelephotoCamera }) {
-                    devices.removeAll(where: { $0.deviceType == .builtInTelephotoCamera })
-                }
-            }
-
-            if devices.isEmpty {
-                showGeneralErrorAlert()
-                return
-            }
-
-            guard let selectedDevice = devices.first else {
-                showGeneralErrorAlert()
-                return
-            }
-
-            var defaultZoomFactorIndex = 0
-            currentZoomFactor = CGFloat(1.0)
-            zoomFactors = [1.0]
-            if #available(iOS 13.0, *) {
-                for zoomFactor in selectedDevice.virtualDeviceSwitchOverVideoZoomFactors {
-                    zoomFactors.append(zoomFactor)
-                }
-            }
-            if #available(iOS 13.0, *), selectedDevice.deviceType == .builtInTripleCamera || selectedDevice.deviceType == .builtInDualWideCamera {
-                defaultZoomFactorIndex = 1
-            }
-            currentZoomFactor = CGFloat(truncating: zoomFactors[defaultZoomFactorIndex])
-            currentZoomFactorIndex = defaultZoomFactorIndex
-
-            currentDevice = selectedDevice
         }
 
         setupSegmentedControl()
         setupTorch()
         setupCapture(with: currentDevice!)
+    }
+
+    func initialSetupCameras() -> Bool {
+        let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: allowedCameras, mediaType: nil, position: .back)
+        devices = discoverySession.devices
+        if devices.isEmpty {
+            return false
+        }
+
+        if #available(iOS 13.0, *) {
+            // Prefer builtInDualWideCamera over builtInWideAngleCamera
+            if devices.contains(where: { $0.deviceType == .builtInDualWideCamera }), devices.contains(where: { $0.deviceType == .builtInWideAngleCamera }) {
+                devices.removeAll(where: { $0.deviceType == .builtInWideAngleCamera })
+            }
+            // Prefer builtInDualWideCamera over builtInWideAngleCamera
+            if devices.contains(where: { $0.deviceType == .builtInDualCamera }), devices.contains(where: { $0.deviceType == .builtInTelephotoCamera }) {
+                devices.removeAll(where: { $0.deviceType == .builtInTelephotoCamera })
+            }
+        }
+
+        if devices.isEmpty {
+            return false
+        }
+
+        guard let selectedDevice = devices.first else {
+            return false
+        }
+
+        var defaultZoomFactorIndex = 0
+        currentZoomFactor = CGFloat(1.0)
+        zoomFactors = [1.0]
+        if #available(iOS 13.0, *) {
+            for zoomFactor in selectedDevice.virtualDeviceSwitchOverVideoZoomFactors {
+                zoomFactors.append(zoomFactor)
+            }
+        }
+        if #available(iOS 13.0, *), selectedDevice.deviceType == .builtInTripleCamera || selectedDevice.deviceType == .builtInDualWideCamera {
+            defaultZoomFactorIndex = 1
+        }
+        currentZoomFactor = CGFloat(truncating: zoomFactors[defaultZoomFactorIndex])
+        currentZoomFactorIndex = defaultZoomFactorIndex
+
+        currentDevice = selectedDevice
+
+        return true
     }
 
     func setupSegmentedControl() {
