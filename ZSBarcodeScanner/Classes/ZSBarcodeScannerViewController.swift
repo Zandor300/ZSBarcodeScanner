@@ -23,9 +23,19 @@ open class ZSBarcodeScannerViewController: UIViewController {
     public static var defaultAllowedBarcodeTypes: [AVMetadataObject.ObjectType] = [.qr, .ean13, .upce, .dataMatrix, .code39, .code128, .code93]
     public static var defaultAllowedCameras: [AVCaptureDevice.DeviceType] = {
         if #available(iOS 13.0, *) {
-            return [.builtInTripleCamera, .builtInDualWideCamera, .builtInDualCamera]
+            return [
+                .builtInTripleCamera,
+                .builtInDualWideCamera,
+                .builtInDualCamera,
+                .builtInWideAngleCamera, // Define base camera's as fallback when triple/dual system isn't available.
+                .builtInUltraWideCamera,
+                .builtInTelephotoCamera,
+            ]
         } else {
-            return [.builtInWideAngleCamera, .builtInTelephotoCamera]
+            return [
+                .builtInWideAngleCamera,
+                .builtInTelephotoCamera,
+            ]
         }
     }()
     public static var defaultCameraNames: [AVCaptureDevice.DeviceType: String] = {
