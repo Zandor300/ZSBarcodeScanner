@@ -304,17 +304,18 @@ open class ZSBarcodeScannerViewController: UIViewController {
             currentDevice = selectedDevice
 
             if selectedDevice.deviceType != .builtInWideAngleCamera {
-                var items: [String] = zoomFactors.map { zoomFactor -> String in
-                    return "\(CGFloat(truncating: zoomFactor))x"
-                }
+                var zoomFactorMultiplier: CGFloat = 1
                 if #available(iOS 18.0, *), selectedDevice.deviceType == .builtInTripleCamera {
-                    items = zoomFactors.map { zoomFactor -> String in
-                        let value = selectedDevice.displayVideoZoomFactorMultiplier * CGFloat(truncating: zoomFactor)
-                        if "\(value)".hasSuffix(".0") {
-                            return "\(Int(value))x"
-                        }
-                        return "\(value)x"
+                    zoomFactorMultiplier = selectedDevice.displayVideoZoomFactorMultiplier
+                } else if #available(iOS 13.0, *) {
+                    zoomFactorMultiplier = selectedDevice.constituentDevices.contains(where: { $0.deviceType == .builtInUltraWideCamera }) ? 0.5 : 1
+                }
+                let items: [String] = zoomFactors.map { zoomFactor -> String in
+                    let value = zoomFactorMultiplier * CGFloat(truncating: zoomFactor)
+                    if "\(value)".hasSuffix(".0") {
+                        return "\(Int(value))x"
                     }
+                    return "\(value)x"
                 }
                 segmentedControl = UISegmentedControl(items: items)
                 segmentedControl.tintColor = .white
