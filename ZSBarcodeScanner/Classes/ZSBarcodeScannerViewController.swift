@@ -109,6 +109,7 @@ open class ZSBarcodeScannerViewController: UIViewController {
     public var scanHapticFeedback = defaultScanHapticFeedback
 
     public var currentZoomFactor = CGFloat(1.0)
+    public var currentZoomFactorIndex = 0
     public var zoomFactors: [NSNumber] = [1.0]
 
     public var automaticallyDismissOnBarcodeScan: Bool = true
@@ -299,40 +300,48 @@ open class ZSBarcodeScannerViewController: UIViewController {
                 defaultZoomFactorIndex = 1
             }
             currentZoomFactor = CGFloat(truncating: zoomFactors[defaultZoomFactorIndex])
-            print(currentZoomFactor)
+            currentZoomFactorIndex = defaultZoomFactorIndex
 
             currentDevice = selectedDevice
-
-            if selectedDevice.deviceType != .builtInWideAngleCamera {
-                var zoomFactorMultiplier: CGFloat = 1
-                if #available(iOS 18.0, *), selectedDevice.deviceType == .builtInTripleCamera {
-                    zoomFactorMultiplier = selectedDevice.displayVideoZoomFactorMultiplier
-                } else if #available(iOS 13.0, *) {
-                    zoomFactorMultiplier = selectedDevice.constituentDevices.contains(where: { $0.deviceType == .builtInUltraWideCamera }) ? 0.5 : 1
-                }
-                let items: [String] = zoomFactors.map { zoomFactor -> String in
-                    let value = zoomFactorMultiplier * CGFloat(truncating: zoomFactor)
-                    if "\(value)".hasSuffix(".0") {
-                        return "\(Int(value))x"
-                    }
-                    return "\(value)x"
-                }
-                segmentedControl = UISegmentedControl(items: items)
-                segmentedControl.tintColor = .white
-                segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
-                if #available(iOS 17.0, *) {
-                    segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
-                } else {
-                    segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
-                }
-                segmentedControl.selectedSegmentIndex = defaultZoomFactorIndex
-                segmentedControl.addTarget(self, action: #selector(didSelectSegmentedControl), for: .valueChanged)
-                self.navigationItem.titleView = segmentedControl
-            }
         }
 
+        setupSegmentedControl()
         setupTorch()
         setupCapture(with: currentDevice!)
+    }
+
+    func setupSegmentedControl() {
+        guard let device = currentDevice else {
+            return
+        }
+        guard device.deviceType != .builtInWideAngleCamera else {
+            print("Not showing segmented control for wide angle camera.")
+            return
+        }
+        var zoomFactorMultiplier: CGFloat = 1
+        if #available(iOS 18.0, *), device.deviceType == .builtInTripleCamera {
+            zoomFactorMultiplier = device.displayVideoZoomFactorMultiplier
+        } else if #available(iOS 13.0, *) {
+            zoomFactorMultiplier = device.constituentDevices.contains(where: { $0.deviceType == .builtInUltraWideCamera }) ? 0.5 : 1
+        }
+        let items: [String] = zoomFactors.map { zoomFactor -> String in
+            let value = zoomFactorMultiplier * CGFloat(truncating: zoomFactor)
+            if "\(value)".hasSuffix(".0") {
+                return "\(Int(value))x"
+            }
+            return "\(value)x"
+        }
+        segmentedControl = UISegmentedControl(items: items)
+        segmentedControl.tintColor = .white
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
+        if #available(iOS 17.0, *) {
+            segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
+        } else {
+            segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
+        }
+        segmentedControl.selectedSegmentIndex = currentZoomFactorIndex
+        segmentedControl.addTarget(self, action: #selector(didSelectSegmentedControl), for: .valueChanged)
+        self.navigationItem.titleView = segmentedControl
     }
 
     @objc private func didSelectSegmentedControl() {
@@ -341,6 +350,8 @@ open class ZSBarcodeScannerViewController: UIViewController {
         }
         do {
             let currentZoomFactor = zoomFactors[segmentedControl.selectedSegmentIndex]
+            self.currentZoomFactor = CGFloat(truncating: currentZoomFactor)
+            self.currentZoomFactorIndex = segmentedControl.selectedSegmentIndex
             try device.lockForConfiguration()
             device.ramp(toVideoZoomFactor: CGFloat(truncating: currentZoomFactor), withRate: 20)
             device.unlockForConfiguration()
