@@ -28,6 +28,16 @@ class ViewController: UIViewController {
         self.navigationController?.pushViewController(barcodeScanner, animated: true)
     }
 
+    @IBAction func didTapSlowScanner(_ sender: Any) {
+        let barcodeScanner = ZSBarcodeScannerViewController()
+        barcodeScanner.delegate = self
+        barcodeScanner.leftBarButtonItemType = .none
+        barcodeScanner.rightBarButtonItemType = .flash
+        barcodeScanner.scanAnimationDuration = 5
+        barcodeScanner.scanPostAnimationDelay = 5
+        self.navigationController?.pushViewController(barcodeScanner, animated: true)
+    }
+
 }
 
 extension ViewController: ZSBarcodeScannerDelegate {

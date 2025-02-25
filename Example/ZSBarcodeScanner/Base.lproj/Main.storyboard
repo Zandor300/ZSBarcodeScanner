@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Odr-ae-ZRi">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Odr-ae-ZRi">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -46,16 +46,28 @@
                                     <action selector="didTapPushScanner:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="mZl-Gh-pAb"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="98W-Nt-41t">
+                                <rect key="frame" x="150.66666666666666" y="520.33333333333337" width="92" height="30"/>
+                                <color key="tintColor" systemColor="linkColor"/>
+                                <state key="normal" title="Slow scanner">
+                                    <color key="titleColor" systemColor="linkColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapSlowScanner:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="O4E-Sc-mt7"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="nPI-1b-bDm" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="1KL-FO-v3E"/>
                             <constraint firstItem="wek-Gj-eZo" firstAttribute="top" secondItem="nPI-1b-bDm" secondAttribute="bottom" constant="8" symbolic="YES" id="Sfk-nU-hPZ"/>
+                            <constraint firstItem="98W-Nt-41t" firstAttribute="top" secondItem="wek-Gj-eZo" secondAttribute="bottom" constant="8" id="agC-96-2f5"/>
                             <constraint firstItem="IGR-zE-KuP" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="cMl-Sr-7Lj"/>
                             <constraint firstItem="nPI-1b-bDm" firstAttribute="top" secondItem="IGR-zE-KuP" secondAttribute="bottom" constant="8" symbolic="YES" id="eYH-AE-jFq"/>
                             <constraint firstItem="wek-Gj-eZo" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="f5f-HX-diw"/>
                             <constraint firstItem="IGR-zE-KuP" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="g82-Xh-efM"/>
                             <constraint firstItem="IGR-zE-KuP" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="sQ8-Qy-EKT"/>
+                            <constraint firstItem="98W-Nt-41t" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="tM2-s4-izg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="ZSBarcodeScanner" id="WgN-er-hLC"/>
