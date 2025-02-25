@@ -270,7 +270,7 @@ open class ZSBarcodeScannerViewController: UIViewController {
 
     private func setupCameras() throws {
         if self.devices.count == 0 {
-            guard initialSetupCameras() else {
+            guard try initialSetupCameras() else {
                 showGeneralErrorAlert()
                 return
             }
@@ -281,7 +281,7 @@ open class ZSBarcodeScannerViewController: UIViewController {
         setupCapture(with: currentDevice!)
     }
 
-    func initialSetupCameras() -> Bool {
+    func initialSetupCameras() throws -> Bool {
         let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: allowedCameras, mediaType: nil, position: .back)
         devices = discoverySession.devices
         if devices.isEmpty {
@@ -306,6 +306,15 @@ open class ZSBarcodeScannerViewController: UIViewController {
         guard let selectedDevice = devices.first else {
             return false
         }
+
+        try selectedDevice.lockForConfiguration()
+        if selectedDevice.isExposureModeSupported(.continuousAutoExposure) {
+            selectedDevice.exposureMode = .continuousAutoExposure
+        }
+        if selectedDevice.isFocusModeSupported(.continuousAutoFocus) {
+            selectedDevice.focusMode = .continuousAutoFocus
+        }
+        selectedDevice.unlockForConfiguration()
 
         var defaultZoomFactorIndex = 0
         currentZoomFactor = CGFloat(1.0)
