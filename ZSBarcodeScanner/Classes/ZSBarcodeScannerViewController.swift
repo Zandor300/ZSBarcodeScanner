@@ -168,7 +168,11 @@ open class ZSBarcodeScannerViewController: UIViewController {
         self.navigationController?.navigationBar.barStyle = .black
         self.view.backgroundColor = .black
 
-        if #available(iOS 15.0, *) {
+        if #available(iOS 26.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithTransparentBackground()
+            self.navigationItem.scrollEdgeAppearance = appearance
+        } else if #available(iOS 15.0, *) {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithDefaultBackground()
             appearance.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.75)
