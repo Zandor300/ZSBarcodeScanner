@@ -361,12 +361,15 @@ open class ZSBarcodeScannerViewController: UIViewController {
             return "\(value)x"
         }
         segmentedControl = UISegmentedControl(items: items)
-        segmentedControl.tintColor = .white
-        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
-        if #available(iOS 17.0, *) {
-            segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.label], for: .selected)
-        } else {
-            segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
+        // On iOS 26 or above, we don't set any color properties so iOS will handle this entirely.
+        if #unavailable(iOS 26.0) {
+            segmentedControl.tintColor = .white
+            segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
+            if #available(iOS 17.0, *) {
+                segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.label], for: .selected)
+            } else {
+                segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
+            }
         }
         segmentedControl.selectedSegmentIndex = currentZoomFactorIndex
         segmentedControl.addTarget(self, action: #selector(didSelectSegmentedControl), for: .valueChanged)
