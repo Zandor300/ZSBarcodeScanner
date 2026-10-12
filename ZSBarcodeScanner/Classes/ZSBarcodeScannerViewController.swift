@@ -197,6 +197,10 @@ open class ZSBarcodeScannerViewController: UIViewController {
         self.outputBarcode = nil
     }
 
+    private var isAppExtension: Bool {
+        return Bundle.main.bundleURL.pathExtension == "appex"
+    }
+
     @objc func cancel() {
         handleDismiss()
     }
@@ -226,9 +230,11 @@ open class ZSBarcodeScannerViewController: UIViewController {
                 DispatchQueue.main.async {
                     guard granted else {
                         let alert = UIAlertController(title: self.errorNoCameraPermissionTitle, message: self.errorNoCameraPermissionDescription, preferredStyle: .alert)
-                        if #available(iOS 10.0, *), let settingsUrl = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsUrl) {
+                        // Open the settings through the window scene instead of `UIApplication.shared`, which is unavailable in app extensions.
+                        // App extensions can't open the settings, so the button is only shown in apps.
+                        if #available(iOS 13.0, *), !self.isAppExtension, let settingsUrl = URL(string: UIApplication.openSettingsURLString), let windowScene = self.view.window?.windowScene {
                             alert.addAction(UIAlertAction(title: self.errorSettingsButtonText, style: .default, handler: { _ in
-                                UIApplication.shared.open(settingsUrl, options: [:])
+                                windowScene.open(settingsUrl, options: nil, completionHandler: nil)
                                 if self.automaticallyDismissOnBarcodeScan {
                                     self.cancel()
                                 }
