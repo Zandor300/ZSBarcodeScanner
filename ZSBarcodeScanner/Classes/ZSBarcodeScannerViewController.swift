@@ -9,6 +9,7 @@ import UIKit
 import AVFoundation
 import QuartzCore
 
+// swiftlint:disable:next type_body_length
 open class ZSBarcodeScannerViewController: UIViewController {
 
     public enum BarButtonItemType {
